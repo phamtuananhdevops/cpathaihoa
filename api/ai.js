@@ -37,7 +37,8 @@ function providerError(r, data, fallbackMsg) {
 }
 
 // Lỗi được phép chuyển sang provider tiếp theo: hết quota / bị giới hạn tần
-// suất, hoặc model không khả dụng. Các lỗi khác giữ nguyên cách xử lý cũ.
+// suất, hoặc model không khả dụng (kể cả model đã bị khai tử / "no longer
+// available"). Các lỗi khác giữ nguyên cách xử lý cũ.
 function isFallbackError(err) {
   if (!err) return false;
   if (err.status === 429) return true;
@@ -48,7 +49,8 @@ function isFallbackError(err) {
   if (msg.indexOf("model") !== -1 &&
       (msg.indexOf("not found") !== -1 || msg.indexOf("not_found") !== -1 ||
        msg.indexOf("unavailable") !== -1 || msg.indexOf("not available") !== -1 ||
-       msg.indexOf("unsupported") !== -1 || msg.indexOf("does not exist") !== -1)) return true;
+       msg.indexOf("no longer available") !== -1 || msg.indexOf("unsupported") !== -1 ||
+       msg.indexOf("does not exist") !== -1)) return true;
   return false;
 }
 
@@ -91,8 +93,9 @@ async function callOpenAI(key, model, system, messages) {
 
 // Fallback nhiều model cho nhánh Gemini: thử lần lượt từng model theo thứ tự
 // ưu tiên. Khi gặp lỗi hết quota / rate limit (429, quota exceeded,
-// too many requests) hoặc model không khả dụng thì tự chuyển sang model tiếp
-// theo trong danh sách. Các lỗi khác giữ nguyên cách xử lý hiện có.
+// too many requests) hoặc model không khả dụng (kể cả model đã bị khai tử /
+// "no longer available") thì tự chuyển sang model tiếp theo trong danh sách.
+// Các lỗi khác giữ nguyên cách xử lý hiện có.
 const GEMINI_MODEL_FALLBACKS = ["gemini-3.1-pro-preview", "gemini-2.5-flash", "gemini-2.0-flash"];
 function isGeminiModelRetryError(err) {
   if (!err) return false;
@@ -104,7 +107,8 @@ function isGeminiModelRetryError(err) {
   if (msg.indexOf("model") !== -1 &&
       (msg.indexOf("not found") !== -1 || msg.indexOf("not_found") !== -1 ||
        msg.indexOf("unavailable") !== -1 || msg.indexOf("not available") !== -1 ||
-       msg.indexOf("unsupported") !== -1 || msg.indexOf("does not exist") !== -1)) return true;
+       msg.indexOf("no longer available") !== -1 || msg.indexOf("unsupported") !== -1 ||
+       msg.indexOf("does not exist") !== -1)) return true;
   return false;
 }
 
