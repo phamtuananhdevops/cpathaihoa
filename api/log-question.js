@@ -37,6 +37,7 @@ module.exports = async function handler(req, res) {
 
   const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token) {
+    console.error("[log-question] missing BLOB_READ_WRITE_TOKEN");
     res.status(500).json({ ok: false, error: "Server chua cau hinh BLOB_READ_WRITE_TOKEN." });
     return;
   }
@@ -60,10 +61,12 @@ module.exports = async function handler(req, res) {
     if (!r.ok) {
       let detail = "";
       try { detail = await r.text(); } catch (e) {}
+      console.error("[log-question] blob upload failed:", r.status, detail.slice(0, 500), "pathname:", pathname);
       throw new Error("Blob upload failed: " + r.status + " " + detail.slice(0, 200));
     }
     res.status(200).json({ ok: true });
   } catch (err) {
+    console.error("[log-question] error:", err && err.message);
     res.status(500).json({ ok: false, error: "Khong luu duoc cau hoi." });
   }
 };
