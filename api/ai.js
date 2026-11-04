@@ -6,7 +6,7 @@
 // Khóa đọc từ Environment Variables phía server:
 //   ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY
 //   AI_KEY được chấp nhận làm khóa Gemini dự phòng.
-//   AI_MODEL (tùy chọn) ghi đè model; mặc định Gemini: gemini-3-pro-preview.
+//   AI_MODEL (tùy chọn) ghi đè model; mặc định Gemini: gemini-3.1-pro-preview.
 
 const DEFAULT_SYSTEM = [
   "Bạn là gia sư ôn thi CPA Việt Nam 2026, môn Phân tích hoạt động tài chính nâng cao.",
@@ -63,7 +63,7 @@ async function callOpenAI(key, model, system, messages) {
 
 async function callGemini(key, model, system, messages) {
   const url = "https://generativelanguage.googleapis.com/v1beta/models/" +
-    (model || "gemini-3-pro-preview") + ":generateContent?key=" + encodeURIComponent(key);
+    (model || "gemini-3.1-pro-preview") + ":generateContent?key=" + encodeURIComponent(key);
   const contents = messages.map(function (m) {
     return { role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] };
   });
