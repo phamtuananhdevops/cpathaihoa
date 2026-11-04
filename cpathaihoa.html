@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Cpathaihoa — Ôn thi CPA 2026 · Môn Phân tích</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#eaf4f7; --surface:#ffffff; --surface2:#dceef3; --ink:#082f45; --ink2:#3d5c6e;
+    --line:#bcd8e2; --accent:#075e87; --accent-ink:#ffffff; --accent-soft:#d3ecf6;
+    --amber:#8a5f0a; --amber-soft:#f6ecd2; --red:#b3372c; --red-soft:#f9e3e0;
+    --blue:#0b7a75; --blue-soft:#d9f2ef;
+    --radius:14px; --shadow:0 2px 10px rgba(8,47,69,.10);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#061826; --surface:#0b2436; --surface2:#10314a; --ink:#e3f2f8; --ink2:#a3c4d4;
+      --line:#1e435f; --accent:#4cc3e6; --accent-ink:#052233; --accent-soft:#0e3350;
+      --amber:#e3b34e; --amber-soft:#2e2a12; --red:#e07a6d; --red-soft:#3a1d19;
+      --blue:#4fd1c5; --blue-soft:#0d2f33;
+      --shadow:0 2px 10px rgba(0,0,0,.45);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Be Vietnam Pro",system-ui,sans-serif;font-size:16px;line-height:1.6}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 18px 90px}
+  h1,h2,h3{line-height:1.25;margin:0}
+  h2{font-size:1.55rem;font-weight:800;margin:0 0 6px}
+  h3{font-size:1.08rem;font-weight:700}
+  p{margin:0 0 10px}
+  a{color:var(--blue)}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  section{padding:34px 0 6px;scroll-margin-top:76px}
+  .sec-sub{color:var(--ink2);max-width:70ch;margin-bottom:18px}
+
+  /* Hero */
+  .hero{padding:38px 0 8px;position:relative}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:-16px;height:30px;pointer-events:none;background:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0 32 C200 62 400 2 600 32 C800 62 1000 2 1200 32 L1200 60 L0 60 Z' fill='%23075e87' fill-opacity='0.16'/%3E%3Cpath d='M0 44 C200 68 400 20 600 44 C800 68 1000 20 1200 44 L1200 60 L0 60 Z' fill='%230b7a75' fill-opacity='0.14'/%3E%3C/svg%3E") repeat-x left bottom;background-size:600px 30px}
+  @media (prefers-color-scheme: dark){
+    .hero::after{background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0 32 C200 62 400 2 600 32 C800 62 1000 2 1200 32 L1200 60 L0 60 Z' fill='%234cc3e6' fill-opacity='0.13'/%3E%3Cpath d='M0 44 C200 68 400 20 600 44 C800 68 1000 20 1200 44 L1200 60 L0 60 Z' fill='%234fd1c5' fill-opacity='0.11'/%3E%3C/svg%3E")}
+  }
+  .hero .tag{display:inline-block;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:.8rem;padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .hero h1{font-size:clamp(1.7rem,4.6vw,2.6rem);font-weight:900;letter-spacing:-.01em;max-width:22ch}
+  .hero h1 .hl{color:var(--accent)}
+  .hero .lead{color:var(--ink2);font-size:1.05rem;max-width:64ch;margin-top:12px}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:22px}
+  .fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+  .fact b{display:block;font-size:1.35rem;font-weight:800}
+  .fact span{color:var(--ink2);font-size:.85rem}
+  .alert{margin-top:16px;background:var(--amber-soft);border:1px solid var(--amber);border-radius:var(--radius);padding:14px 16px}
+  .alert b{color:var(--amber)}
+  .alert p{margin:4px 0 0;font-size:.95rem}
+
+  /* Nav */
+  nav.toc{position:sticky;top:0;z-index:40;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line);margin:0 -18px;padding-left:18px;padding-right:18px}
+  nav.toc .row{display:flex;flex-wrap:wrap;gap:6px}
+  nav.toc a{color:var(--ink);text-decoration:none;font-size:.85rem;font-weight:600;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+  nav.toc a:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* Cards & grids */
+  .grid{display:grid;gap:12px}
+  .grid.c2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .grid.c3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  .card h3{margin-bottom:6px}
+  .card p,.card li{color:var(--ink2);font-size:.94rem}
+  .card ul{margin:6px 0 0;padding-left:18px}
+  .card li{margin:3px 0}
+  .badge{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;vertical-align:middle}
+  .b-off{background:var(--accent-soft);color:var(--accent)}
+  .b-exp{background:var(--amber-soft);color:var(--amber)}
+  .b-info{background:var(--blue-soft);color:var(--blue)}
+  .b-extra{background:var(--surface2);color:var(--ink2)}
+
+  /* Topic accordion */
+  .topic{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .topic>button{width:100%;display:flex;align-items:center;gap:12px;background:none;border:0;color:var(--ink);font:inherit;font-weight:700;text-align:left;padding:15px 18px;cursor:pointer}
+  .topic .num{flex:0 0 auto;width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:800}
+  .topic .chev{margin-left:auto;color:var(--ink2);transition:transform .2s}
+  .topic.open .chev{transform:rotate(180deg)}
+  .topic .body{display:none;padding:0 18px 18px 64px}
+  .topic.open .body{display:block}
+  .topic .body p,.topic .body li{color:var(--ink2);font-size:.94rem}
+  .topic .body ul{padding-left:18px;margin:4px 0 10px}
+  .fbox{background:var(--surface2);border-radius:10px;padding:10px 14px;margin:8px 0;font-family:"IBM Plex Mono",monospace;font-size:.88rem;line-height:1.7;overflow-wrap:anywhere}
+
+  /* Weight bars */
+  .wrow{display:grid;grid-template-columns:1fr 52px;gap:4px 12px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .wrow:last-child{border-bottom:0}
+  .wrow .bar{grid-column:1/-1;height:8px;border-radius:99px;background:var(--surface2);overflow:hidden}
+  .wrow .bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+  .wrow .pct{font-weight:800;text-align:right}
+  .wrow.hot .bar i{background:var(--amber)}
+  .note{font-size:.86rem;color:var(--ink2)}
+
+  /* Steps */
+  .steps{counter-reset:st;display:grid;gap:10px}
+  .step{display:flex;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+  .step .n{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800;display:flex;align-items:center;justify-content:center}
+  .step p{color:var(--ink2);font-size:.94rem;margin:2px 0 0}
+  .step b.t{display:block}
+
+  /* Flashcards */
+  .fc-stage{perspective:1200px;max-width:640px;margin:0 auto}
+  .fc{position:relative;height:230px;cursor:pointer;transform-style:preserve-3d;transition:transform .5s}
+  .fc.flip{transform:rotateY(180deg)}
+  .fc .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;border:1px solid var(--line)}
+  .fc .front{background-color:var(--accent);color:var(--accent-ink);background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0 32 C200 62 400 2 600 32 C800 62 1000 2 1200 32 L1200 60 L0 60 Z' fill='%23ffffff' fill-opacity='0.12'/%3E%3Cpath d='M0 46 C200 68 400 24 600 46 C800 68 1000 24 1200 46 L1200 60 L0 60 Z' fill='%23ffffff' fill-opacity='0.09'/%3E%3C/svg%3E");background-repeat:repeat-x;background-position:left bottom;background-size:600px 56px}
+  .fc .front .k{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+  .fc .front .q{font-size:1.3rem;font-weight:800;margin-top:8px}
+  .fc .back{background:var(--surface);transform:rotateY(180deg);box-shadow:var(--shadow)}
+  .fc .back .f{font-family:"IBM Plex Mono",monospace;font-size:1.05rem;font-weight:600}
+  .fc .back .d{color:var(--ink2);font-size:.9rem;margin-top:8px;max-width:46ch}
+  .fc-ctl{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .btn{font:inherit;font-weight:700;font-size:.9rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 16px;cursor:pointer}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .btn.primary:hover{color:var(--accent-ink);opacity:.92}
+  .btn.small{padding:6px 12px;font-size:.83rem}
+  .fc-count{color:var(--ink2);font-size:.88rem;font-weight:600}
+
+  /* Exercises */
+  .ex{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .ex h3{margin-bottom:4px}
+  .ex .src{font-size:.8rem;color:var(--ink2);margin-bottom:8px}
+  .ex .de{color:var(--ink2);font-size:.95rem}
+  .ex .de b{color:var(--ink)}
+  .sol{display:none;margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+  .sol.show{display:block}
+  .sol p,.sol li{font-size:.94rem;color:var(--ink2)}
+  .sol ul{padding-left:18px;margin:4px 0}
+  .sol .nx{background:var(--accent-soft);border-radius:10px;padding:10px 14px;color:var(--ink);margin-top:8px}
+  .sol .nx b{color:var(--accent)}
+
+  /* Past papers & advanced bank */
+  .paper{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+  .paper>summary{cursor:pointer;font-weight:700;padding:14px 18px;list-style:none;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .paper>summary::-webkit-details-marker{display:none}
+  .paper>summary .chev{margin-left:auto;color:var(--ink2)}
+  .paper .pbody{padding:0 18px 16px}
+  .paper .pbody h4{margin:14px 0 6px;font-size:.98rem}
+  .paper .pbody p,.paper .pbody li{color:var(--ink2);font-size:.93rem}
+  .paper .pbody ul{padding-left:18px;margin:4px 0}
+  .paper .pbody li{margin:4px 0}
+  .paper .pbody li b{color:var(--ink)}
+  .paper .src{font-size:.8rem;color:var(--ink2)}
+  .warnbox{margin:0 0 16px;background:var(--red-soft);border:1px solid var(--red);border-radius:var(--radius);padding:14px 16px}
+  .warnbox b{color:var(--red)}
+  .warnbox p{margin:4px 0 0;font-size:.95rem}
+  details.solwrap{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  details.solwrap>summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--accent)}
+  details.solwrap ol,details.solwrap ul{padding-left:20px;margin:6px 0}
+  details.solwrap p,details.solwrap li{font-size:.94rem;color:var(--ink2)}
+  details.solwrap li b{color:var(--ink)}
+  details.solwrap .nx{background:var(--accent-soft);border-radius:10px;padding:10px 14px;color:var(--ink);margin-top:8px}
+
+  /* Quiz */
+  .quiz-q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .quiz-q h3{font-size:1rem;margin-bottom:10px}
+  .opts{display:grid;gap:8px}
+  .opt{font:inherit;text-align:left;font-size:.94rem;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);color:var(--ink);cursor:pointer}
+  .opt:hover{border-color:var(--accent)}
+  .opt.right{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+  .opt.wrong{border-color:var(--red);background:var(--red-soft)}
+  .opt:disabled{cursor:default;opacity:.85}
+  .expl{display:none;margin-top:10px;font-size:.9rem;color:var(--ink2);background:var(--blue-soft);border-radius:10px;padding:10px 14px}
+  .expl.show{display:block}
+  .quiz-score{font-weight:800;font-size:1.05rem}
+
+  /* Mistakes table -> cards on mobile */
+  .mtable{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .mtable th,.mtable td{padding:11px 14px;text-align:left;font-size:.92rem;vertical-align:top;border-bottom:1px solid var(--line)}
+  .mtable th{background:var(--surface2);font-weight:700}
+  .mtable tr:last-child td{border-bottom:0}
+  .mtable td{color:var(--ink2)}
+  .mtable td:first-child{color:var(--ink);font-weight:600}
+  @media(max-width:680px){
+    .mtable thead{display:none}
+    .mtable,.mtable tbody,.mtable tr,.mtable td{display:block;width:100%}
+    .mtable tr{border-bottom:1px solid var(--line);padding:8px 0}
+    .mtable td{border-bottom:0;padding:5px 14px}
+  }
+
+  /* Timer */
+  .timer-card{text-align:center}
+  .timer-card .clock{font-family:"IBM Plex Mono",monospace;font-size:clamp(2.4rem,8vw,3.6rem);font-weight:600;letter-spacing:.02em;margin:8px 0 4px}
+  .timer-card .t-sub{color:var(--ink2);font-size:.9rem;margin-bottom:14px}
+
+  /* Checklist */
+  .check{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .check li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px 12px 46px;position:relative;font-size:.95rem;cursor:pointer;box-shadow:var(--shadow)}
+  .check li::before{content:"";position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;border:2px solid var(--line);border-radius:5px}
+  .check li.done{color:var(--ink2);text-decoration:line-through}
+  .check li.done::before{background:var(--accent);border-color:var(--accent)}
+  .check li.done::after{content:"✓";position:absolute;left:19px;top:50%;transform:translateY(-54%);color:var(--accent-ink);font-size:.8rem;font-weight:800}
+
+  footer{margin-top:44px;border-top:1px solid var(--line);padding-top:18px;color:var(--ink2);font-size:.88rem}
+  footer ul{padding-left:18px}
+
+  /* Chat */
+  .chat-fab{position:fixed;right:18px;bottom:18px;z-index:60;background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;padding:14px 20px;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.25);display:flex;gap:8px;align-items:center}
+  .chat-panel{position:fixed;right:18px;bottom:78px;z-index:60;width:min(400px,calc(100vw - 24px));height:min(560px,calc(100dvh - 110px));background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 44px rgba(0,0,0,.3);display:none;flex-direction:column;overflow:hidden}
+  .chat-panel.open{display:flex}
+  .chat-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .chat-head b{font-size:1rem}
+  .chat-head span{display:block;font-size:.78rem;color:var(--ink2);font-weight:400}
+  .chat-head button{margin-left:auto;background:none;border:0;font-size:1.25rem;color:var(--ink2);cursor:pointer;line-height:1}
+  .chat-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:.92rem;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+  .msg.bot{background:var(--surface2);align-self:flex-start;border-bottom-left-radius:4px}
+  .msg.user{background:var(--accent);color:var(--accent-ink);align-self:flex-end;border-bottom-right-radius:4px}
+  .msg .mono{font-size:.86rem}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px}
+  .chip{font:inherit;font-size:.78rem;font-weight:600;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+  .chat-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+  .chat-form input{flex:1;font:inherit;font-size:.92rem;padding:10px 13px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);min-width:0}
+  .chat-form button{font:inherit;font-weight:700;background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:10px 16px;cursor:pointer}
+  .chat-status{display:flex;align-items:center;gap:6px;font-size:.75rem;font-weight:600;color:var(--ink2);margin-top:3px}
+  .chat-status .dot{width:9px;height:9px;border-radius:50%;background:var(--amber);flex:0 0 auto}
+  .chat-status.on{color:var(--accent)} .chat-status.on .dot{background:var(--accent)}
+  .chat-status.off{color:var(--red)} .chat-status.off .dot{background:var(--red)}
+  .msg.typing{opacity:.65;font-style:italic}
+  .codewrap{position:relative}
+  pre.code{background:#04101c;color:#cfeaf5;border-radius:12px;padding:16px;overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:.76rem;line-height:1.55;max-height:480px;overflow-y:auto;white-space:pre;margin:0}
+  @media (prefers-color-scheme: light){pre.code{background:#082f45;color:#d9f0fa}}
+  @media(max-width:640px){.chat-panel{right:12px;bottom:74px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="tag">Kỳ thi CPA Việt Nam 2026 · Trọng tâm môn Phân tích</span>
+    <h1>Học và làm bài thi <span class="hl">Phân tích hoạt động tài chính nâng cao</span></h1>
+    <p class="lead">Trang học bám theo khung tài liệu ôn thi 2026 của Bộ Tài chính: 8 chuyên đề trọng tâm, hệ thống công thức phải nhớ, bài tập mẫu có lời giải theo đề thật các năm, và kinh nghiệm luyện thi từ người đã đỗ. Tên gọi ngắn thường dùng: “môn Phân tích” / “Phân tích tài chính”.</p>
+    <div class="facts">
+      <div class="fact"><b>180 phút</b><span>Thời gian làm bài, thi viết tự luận trên giấy</span></div>
+      <div class="fact"><b>5 câu × 2 điểm</b><span>Thang điểm 10, có đề chẵn và đề lẻ</span></div>
+      <div class="fact"><b>≥ 5 điểm</b><span>Điểm đạt tối thiểu cho từng môn</span></div>
+      <div class="fact"><b>≥ 38 điểm</b><span>Tổng 6 môn (không tính ngoại ngữ) để đạt chứng chỉ kiểm toán viên</span></div>
+    </div>
+    <div class="alert">
+      <b>Lịch thi 2026: chưa xác minh được ngày cụ thể.</b>
+      <p>Bộ Tài chính đã có thông báo về kỳ thi kiểm toán viên năm 2026 (đăng 02/09/2026 trên mof.gov.vn) nhưng nội dung chi tiết về ngày thi, địa điểm và hạn nộp hồ sơ chưa đọc được tại thời điểm tổng hợp (04/11/2026). Đừng dùng lịch 2025 thay thế — hãy kiểm tra trực tiếp tại <a href="https://mof.gov.vn" target="_blank" rel="noopener">mof.gov.vn</a> và <a href="https://vacpa.org.vn" target="_blank" rel="noopener">vacpa.org.vn</a>. Tham chiếu nhịp năm trước: kỳ 2025 thi 2 đợt cuối tháng 11 – đầu tháng 12.</p>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Mục lục">
+    <div class="row">
+      <a href="#khung">Khung chương trình</a>
+      <a href="#lotrinh">Lộ trình học</a>
+      <a href="#chuyende">8 chuyên đề</a>
+      <a href="#flashcard">Flashcard công thức</a>
+      <a href="#baitap">Bài tập mẫu</a>
+      <a href="#dechicu">Đề thi cũ</a>
+      <a href="#nangcao">Bài tập nâng cao</a>
+      <a href="#quiz">Quiz luyện tập</a>
+      <a href="#loi">Lỗi hay gặp</a>
+      <a href="#phongthi">Phòng thi</a>
+      <a href="#moi2026">Mới 2026</a>
+      <a href="#aimau">Mã mẫu /api/ai</a>
+    </div>
+  </nav>
+
+  <section id="khung">
+    <h2>Khung chương trình 2026</h2>
+    <p class="sec-sub">Theo mục lục tài liệu học, ôn thi lấy chứng chỉ kiểm toán viên năm 2026 do Bộ Tài chính thông báo ngày 10/7/2026 (đã cập nhật quy định mới, lược bỏ quy định hết hiệu lực). Cấu trúc giữ nguyên như khung 2023. <span class="badge b-off">Nguồn: tài liệu BTC qua TACA</span></p>
+    <div class="grid c2">
+      <div class="card">
+        <h3>Phần I — Tổng quan</h3>
+        <ul>
+          <li>Mục tiêu và nội dung phân tích hoạt động tài chính doanh nghiệp</li>
+          <li>Phương pháp phân tích: so sánh, chi tiết, loại trừ, liên hệ cân đối…</li>
+          <li>Tổ chức quy trình phân tích</li>
+          <li>Cơ sở dữ liệu: Bảng cân đối kế toán, Báo cáo KQKD, Báo cáo lưu chuyển tiền tệ, Thuyết minh BCTC</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Phần II — Nội dung phân tích (trọng tâm)</h3>
+        <ul>
+          <li>8 chuyên đề chi tiết ở mục dưới — đây là phần ra bài tập chính</li>
+          <li>Từ đề 2023–2024: cả 5 câu đều là bài tập tình huống, lý thuyết (công thức, ý nghĩa, nhận định) lồng trong từng câu</li>
+          <li>Phần III là phụ lục: bảng thuật ngữ tài chính doanh nghiệp</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Điều kiện đạt chứng chỉ</h3>
+        <ul>
+          <li>Mỗi môn ≥ 5/10 điểm</li>
+          <li>Thi kiểm toán viên: tổng 6 môn (trừ ngoại ngữ) ≥ 38 điểm; ngoại ngữ chỉ xét đạt</li>
+          <li>Đã có chứng chỉ kế toán viên: chỉ thi Kiểm toán + Phân tích (+ ngoại ngữ xét đạt), tổng 2 môn ≥ 12,5 điểm</li>
+        </ul>
+        <p class="note">Theo tổng hợp Thông tư 91/2017/TT-BTC — nên đối chiếu văn bản gốc trước khi đăng ký dự thi.</p>
+      </div>
+      <div class="card">
+        <h3>Hai điều cần biết trước khi ôn</h3>
+        <ul>
+          <li><b>Không có trọng số chính thức theo chương</b> do BTC công bố — mọi bảng “tỷ trọng đề thi” trên mạng đều là kinh nghiệm cá nhân.</li>
+          <li><b>Điểm hòa vốn &amp; ra quyết định</b> đã được lược bỏ khỏi nội dung ôn tập môn Phân tích từ kỳ 2020; nay nằm ở môn Tài chính. Trang này chỉ dạy ở mức bổ trợ.</li>
+          <li>Chỉ số thị trường (P/E, P/B, EPS) và định giá doanh nghiệp thuộc <b>môn Tài chính</b>, không phải trọng tâm đề Phân tích.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="lotrinh">
+    <h2>Lộ trình học 3 giai đoạn</h2>
+    <p class="sec-sub">Cấu trúc theo chương trình ôn thi của TACA và kinh nghiệm của thí sinh đạt 8,5 điểm (Gonnapass). Mỗi chuyên đề học theo đúng 5 bước ở cột phải.</p>
+    <div class="grid c2">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><b class="t">Giai đoạn 1 — Hệ thống công thức theo chuyên đề</b><p>Học lần lượt: khái quát → huy động/sử dụng vốn → tài trợ &amp; bảo đảm vốn → công nợ &amp; thanh toán → dòng tiền → kết quả kinh doanh → hiệu suất &amp; sinh lời → rủi ro &amp; dự báo. TACA bố trí 10 buổi cho giai đoạn này.</p></div></div>
+        <div class="step"><div class="n">2</div><div><b class="t">Giai đoạn 2 — Luyện giải đề theo dạng bài</b><p>Chữa toàn bộ câu lý thuyết và 8 dạng bài tập (mục Bài tập mẫu), luyện đề 2015–2024, ưu tiên đề 2023–2024 vì cấu trúc mới là 5 bài tập tình huống. TACA bố trí 4 buổi.</p></div></div>
+        <div class="step"><div class="n">3</div><div><b class="t">Giai đoạn 3 — Tổng ôn &amp; thi thử đúng giờ</b><p>Tổng kết kiến thức, sửa lỗi sai cá nhân, làm đề trọn 180 phút với quy định làm tròn của đề (đề 2024: lấy 3 chữ số sau dấu phẩy).</p></div></div>
+      </div>
+      <div class="card">
+        <h3>5 bước học một chuyên đề (Gonnapass)</h3>
+        <ul>
+          <li><b>Bước 1:</b> Học thẳng vào công thức — phân biệt rõ chỉ tiêu <i>thời điểm</i> (số cuối kỳ) với chỉ tiêu <i>thời kỳ</i> (số bình quân / dòng trong kỳ).</li>
+          <li><b>Bước 2:</b> Đọc ý nghĩa của từng công thức — phần này dùng cho câu lý thuyết và đoạn nhận xét.</li>
+          <li><b>Bước 3:</b> Xem dạng bài liên quan và bài tập mẫu, học cách trình bày của bài chữa.</li>
+          <li><b>Bước 4:</b> Rút ra mẫu các bước làm bài riêng cho dạng đó — bước quan trọng nhất, giúp khỏi tốn thời gian nghĩ cách trình bày trong phòng thi.</li>
+          <li><b>Bước 5:</b> Tự giải 1 bài trong đề thi các năm trước theo đúng mẫu đã rút.</li>
+        </ul>
+        <p class="note">Nguyên tắc chọn sách: dùng tài liệu do Bộ Tài chính ban hành làm chuẩn duy nhất, vì đề và đáp án căn cứ vào tài liệu chính thống của BTC — các trường/giảng viên khác nhau có hệ thống chỉ tiêu khác nhau.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h3>Tỷ trọng ôn tập gợi ý <span class="badge b-exp">Kinh nghiệm cá nhân — không phải trọng số chính thức</span></h3>
+      <p class="note" style="margin-bottom:8px">Phân bổ của một thí sinh đã thi đỗ, dùng để chia thời gian ôn — không phải ma trận đề của Hội đồng thi.</p>
+      <div id="weights"></div>
+    </div>
+  </section>
+
+  <section id="chuyende">
+    <h2>8 chuyên đề trọng tâm &amp; công thức phải nhớ</h2>
+    <p class="sec-sub">Bấm vào từng chuyên đề để xem nội dung cốt lõi và công thức. Lưu ý xuyên suốt: công thức theo tài liệu ôn thi CPA của Bộ Tài chính — một số chỉ tiêu (điển hình là khả năng thanh toán nhanh) có định nghĩa khác sách quốc tế.</p>
+    <div id="topics"></div>
+    <div class="card">
+      <h3>Mở rộng — liên thông môn Tài chính <span class="badge b-extra">Bổ trợ, không phải trọng tâm đề Phân tích</span></h3>
+      <p>Chỉ số thị trường và định giá nằm ở môn Tài chính và quản lý tài chính nâng cao (định giá trái phiếu/cổ phiếu, định giá doanh nghiệp). Học ở mức biết công thức để liên thông kiến thức:</p>
+      <div class="fbox">EPS = LNST / Số cổ phiếu thường bình quân &nbsp;·&nbsp; P/E = Giá thị trường / EPS &nbsp;·&nbsp; P/B = Giá thị trường / Giá trị sổ sách mỗi CP &nbsp;·&nbsp; Tỷ suất cổ tức = Cổ tức mỗi CP / Giá thị trường</div>
+      <p style="margin-top:6px">Điểm hòa vốn cũng thuộc nhóm bổ trợ (đã lược bỏ khỏi môn Phân tích từ 2020):</p>
+      <div class="fbox">Qhv = F / (g − v) &nbsp;·&nbsp; DThv = F / Tỷ lệ lãi trên biến phí &nbsp;·&nbsp; DOL = %ΔEBIT / %ΔDoanh thu &nbsp;·&nbsp; DFL = EBIT / (EBIT − Lãi vay) &nbsp;·&nbsp; DTL = DOL × DFL</div>
+    </div>
+  </section>
+
+  <section id="flashcard">
+    <h2>Flashcard công thức</h2>
+    <p class="sec-sub">Bấm vào thẻ để lật xem công thức và cách đọc. Học theo “cặp đối chiếu”: tự tài trợ ↔ hệ số nợ, vòng quay ↔ số ngày, ROS ↔ ROA ↔ ROE qua DuPont.</p>
+    <div class="fc-stage">
+      <div class="fc" id="fcCard" role="button" tabindex="0" aria-label="Thẻ công thức, bấm để lật">
+        <div class="face front"><div class="k" id="fcGroup"></div><div class="q" id="fcQ"></div><div style="margin-top:10px;font-size:.82rem;opacity:.85">Bấm để xem công thức</div></div>
+        <div class="face back"><div class="f" id="fcF"></div><div class="d" id="fcD"></div></div>
+      </div>
+      <div class="fc-ctl">
+        <button class="btn" id="fcPrev">← Trước</button>
+        <span class="fc-count" id="fcCount"></span>
+        <button class="btn" id="fcNext">Tiếp →</button>
+        <button class="btn" id="fcShuffle">Trộn thẻ</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="baitap">
+    <h2>Bài tập mẫu có lời giải</h2>
+    <p class="sec-sub">8 dạng bài theo đề cương TACA: (1) khái quát tài chính &amp; KQKD, (2) huy động &amp; sử dụng vốn, (3) tài trợ &amp; đảm bảo vốn, (4) công nợ &amp; thanh khoản, (5) tạo tiền &amp; lưu chuyển tiền tệ, (6) tình hình &amp; kết quả kinh doanh, (7) hiệu suất &amp; hiệu quả sử dụng vốn, (8) rủi ro tài chính. Mọi câu đều làm đủ 3 bước: <b>Tính toán → Phân tích → Kết luận</b>. Tự làm trước, rồi mới mở lời giải.</p>
+    <div id="exercises"></div>
+    <div class="card">
+      <h3>Mẫu trình bày “ăn điểm” cho mọi dạng bài</h3>
+      <ul>
+        <li>Bảng tính: Chỉ tiêu | Công thức | Kỳ gốc | Kỳ phân tích | Chênh lệch (+/−) | Tỷ lệ (%)</li>
+        <li>Nhận xét khái quát: quy mô, xu hướng</li>
+        <li>Phân tích chi tiết từng nhóm: trị số → biến động → nguyên nhân → tích cực hay tiêu cực</li>
+        <li>Kết luận + kiến nghị ngắn gọn, gắn với số liệu vừa tính</li>
+        <li>Câu lý thuyết: định nghĩa → công thức → ý nghĩa → rủi ro/lợi ích → ví dụ đơn giản, ít tính toán</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="dechicu">
+    <h2>Đề thi cũ (bản sưu tầm)</h2>
+    <p class="sec-sub">Đề các năm 2016–2024 dưới đây là <b>đề do thí sinh/trung tâm sưu tầm lại</b> (nguồn: Gonnapass), <b>KHÔNG phải đề chính thức</b> do Bộ Tài chính hay Hội đồng thi công bố — trong các nguồn đã kiểm tra, không tìm thấy đề/đáp án chính thức nào trên VACPA hay mof.gov.vn. Mỗi đề gồm 5 câu × 2 điểm, có đề chẵn và đề lẻ. Nội dung từng câu và số liệu dưới đây chép đúng theo bản sưu tầm; một số bảng trong bản sưu tầm có sai lệch nội bộ và đã được ghi chú ngay tại câu liên quan. Bấm vào từng năm để xem.</p>
+    <div class="warnbox">
+      <b>Về lời giải &amp; barem — đọc trước khi dùng:</b>
+      <p><b>KHÔNG tìm được lời giải chi tiết miễn phí nào, và KHÔNG tìm được barem/thang điểm chấm chính thức nào</b> cho môn Phân tích trong các nguồn đã kiểm tra. Các bài Gonnapass có tiêu đề “đề thi và đáp án tham khảo” nhưng phần đáp án chỉ ghi “Vui lòng liên hệ để đặt mua sách” — tức đáp án nằm trong sách bán, không công khai trên web. Mọi tài liệu tự xưng là “barem chính thức môn Phân tích” mà không dẫn được nguồn Bộ Tài chính/Hội đồng thi đều chưa được xác minh.</p>
+      <p><b>Cảnh báo nhầm môn:</b> các bài giải chi tiết 2022, 2023 rất đầy đủ trên Tuonthi/TACA là của môn <b>“Tài chính và quản lý tài chính nâng cao”</b> (đòn bẩy, định giá trái phiếu/cổ phiếu, WACC, NPV…) — <b>TUYỆT ĐỐI KHÔNG dùng chúng làm bài giải môn Phân tích</b>. Mục “Bài tập nâng cao” ngay dưới đây dùng lời giải <b>tự tính</b> theo số liệu đề thật, không phải đáp án hay barem chính thức.</p>
+    </div>
+
+    <details class="paper" open>
+      <summary>Đề 2024 — chẵn &amp; lẻ <span class="badge b-exp">Sưu tầm — không chính thức</span><span class="chev">▾</span></summary>
+      <div class="pbody">
+        <p class="src">Nguồn: Gonnapass — <a href="https://gonnapass.com/de-thi-cpa-va-dap-tham-khao-mon-phan-tich-tai-chinh-2024/" target="_blank" rel="noopener">gonnapass.com (đề 2024)</a>. Đáp án tham khảo của nguồn này phải mua sách, không công khai.</p>
+        <h4>Đề chẵn</h4>
+        <ul>
+          <li><b>Câu 1 (2đ) — Sinh lời ROE, CTCP Thạnh Phát</b> (triệu đồng): DT 7.125 (2023) / 6.000 (2022); chi phí lãi vay 290 / 260; LN trước thuế 400 / 306,25; tổng tài sản cuối năm 5.000 / 4.500; VCSH cuối năm 2.000 / 2.000; chi phí sử dụng vốn vay bình quân 11% cả 2 năm; tài sản đầu 2022 là 3.500, VCSH đầu 2022 là 1.500. Yêu cầu: (1) phân tích biến động ROE; (2) mối quan hệ ROE với hệ số tài sản/VCSH, hiệu suất sử dụng vốn, hệ số sinh lời hoạt động, nhận định tỷ số ảnh hưởng tích cực nhất; (3) chứng minh bằng số liệu tác động của vốn vay tới ROE năm 2023.</li>
+          <li><b>Câu 2 (2đ) — Quản trị chi phí &amp; hiệu quả, Cty hoá chất công nghiệp</b> (triệu đồng): DT thuần 2.298.760 (N) / 2.435.680 (N-1); giá vốn 1.876.900 / 1.923.400; LN gộp 421.860 / 512.280; DT tài chính 201.980 / 178.600; chi phí tài chính 54.700 / 202.980; chi phí bán hàng 156.450 / 142.800; chi phí quản lý 98.780 / 110.980; LN thuần HĐKD 313.910 / 234.120; LN khác −2.010 / 900; LN trước thuế 311.900 / 235.020; LN sau thuế 243.282 / 183.316. (Có lời giải tự tính ở Chuyên đề 6, mục Bài tập nâng cao.)</li>
+          <li><b>Câu 3 (2đ) — Bảo đảm vốn theo tính ổn định nguồn tài trợ, Cty bia S</b> (tỷ đồng): TSNH 25.800 (31/12/2023) / 26.310 (2022); TSDH 6.000 / 6.200; tổng tài sản 31.800 / 32.510; nợ phải trả 7.750 / 10.180 (ngắn hạn 6.580 / 8.800; dài hạn 1.170 / 1.380); VCSH 24.050 / 22.330. Yêu cầu: tính nguồn vốn dài hạn cuối mỗi năm và phân tích bảo đảm vốn.</li>
+          <li><b>Câu 4 (2đ) — Dấu hiệu rủi ro về hiệu suất sử dụng vốn, CTCP BĐS PPS</b> (triệu đồng): tổng tài sản 221.833.546 → 277.734.876; nợ phải trả 160.660.433 → 212.917.146; VCSH 61.173.113 → 64.817.730; DT 49.938.750 (N-1) / 51.151.000 (N); giá vốn 33.600.300 / 38.778.800.</li>
+          <li><b>Câu 5 (2đ) — Công nợ, Cty thương mại Toàn Thắng</b> (triệu đồng, 365 ngày, làm tròn 3 chữ số thập phân): TSNH 56.790 / 57.460 / 57.710 (N, N+1, N+2); TSDH 80.800 / 89.640 / 111.210; tổng tài sản 137.590 / 147.100 / 168.920; nợ phải trả 54.090 / 56.800 / 70.670; VCSH 83.500 / 90.300 / 98.250; DT thuần 154.700 / 189.600; LN sau thuế 34.080 / 41.376. <i>Lưu ý chưa xác minh:</i> yêu cầu in trong bài ghi “công ty CP đầu tư kinh doanh BĐS PPS” trong khi bảng số liệu ghi “Toàn Thắng” — có dấu hiệu câu hỏi và bảng số liệu bị ghép lệch khi sưu tầm.</li>
+        </ul>
+        <h4>Đề lẻ</h4>
+        <ul>
+          <li><b>Câu 1</b> — CTCP Thanh Hoa (DT 3.000 / 5.000 / 7.000 / 8.000 qua 2020–2023; LN trước thuế 240 / 250 / 260 / 260; TSNH bình quân 1.000 / 1.200 / 2.000 / 3.000; TSDH bình quân 1.500 / 2.000 / 2.000 / 3.500; VCSH bình quân 1.500 / 1.500 / 1.500 / 1.400): hiệu quả sử dụng tài sản, ROA, ROE.</li>
+          <li><b>Câu 2</b> — Cty vật liệu xây dựng (DT thuần 1.678.950 / 1.432.800; LN thuần HĐKD 314.910 / 210.020; LN sau thuế 244.397 / 166.085): quản trị chi phí &amp; hiệu quả.</li>
+          <li><b>Câu 3</b> — Cty bia B: tài sản trong thanh toán, nguồn vốn trong thanh toán, bảo đảm vốn theo quan điểm luân chuyển vốn.</li>
+          <li><b>Câu 4</b> — Cty thép NK: rủi ro về huy động vốn và khả năng thanh toán (lưu chuyển tiền thuần HĐKD −827.921 / 268.556; nợ quá hạn, đến hạn 806.000 / 788.000; EBIT 106.844 / 177.072; lãi vay phải trả 262.466 / 292.679).</li>
+          <li><b>Câu 5</b> — Cty Hoàng Thành: công nợ 3 năm (tổng tài sản 12.100 / 17.250 / 18.980; nợ phải trả 1.800 / 6.850 / 5.390; VCSH 10.300 / 10.400 / 13.590; DT 69.400 / 71.400; LN sau thuế 6.880 / 7.260,8).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="paper">
+      <summary>Đề 2023 — chẵn &amp; lẻ <span class="badge b-exp">Sưu tầm — không chính thức</span><span class="chev">▾</span></summary>
+      <div class="pbody">
+        <p class="src">Nguồn: Gonnapass — <a href="https://gonnapass.com/de-thi-cpa-va-dap-tham-khao-mon-phan-tich-tai-chinh-2023/" target="_blank" rel="noopener">gonnapass.com (đề 2023)</a>. Đáp án tham khảo phải mua sách.</p>
+        <h4>Đề chẵn</h4>
+        <ul>
+          <li><b>Câu 1 (2đ) — Công nợ phải trả, Cty BĐS VNC</b> (triệu đồng): Nợ ngắn hạn 10.004.265 (đầu năm) / 10.611.266 (cuối năm); nợ dài hạn 4.799.815 / 5.559.221; nợ phải trả người bán 1.764.747 / 2.274.659 (năm N-1: 1.448.027); tổng nguồn vốn 20.820.073 / 22.454.029; giá vốn 3.117.764 (N-1) / 7.220.310 (N). Yêu cầu: quy mô &amp; cơ cấu công nợ phải trả; vòng quay phải trả người bán &amp; thời gian thanh toán bình quân; công thức &amp; ý nghĩa 2 chỉ tiêu phân tích khả năng thanh toán. (Có lời giải tự tính ở Chuyên đề 4, mục Bài tập nâng cao.)</li>
+          <li><b>Câu 2 (2đ) — Hiệu quả &amp; quản trị chi phí, Cty Bình Minh BĐS</b> (tỷ đồng, 2022/2021): DT thuần 5.512 / 10.089; giá vốn 2.542 / 4.492; LN gộp 2.970 / 5.597; DT tài chính 364 / 353; chi phí tài chính 721 / 544 (lãi vay 461 / 468); chi phí bán hàng 1.057 / 1.887; chi phí quản lý 1.083 / 998; LN thuần HĐKD 773 / 2.521; LN trước thuế 765 / 2.515; LN sau thuế 490 / 1.666. <i>Lưu ý:</i> bảng thuyết minh doanh thu/giá vốn theo hoạt động in trong bài có tổng cộng không khớp hoàn toàn với dòng tổng (ví dụ các thành phần doanh thu cộng lại 5.556 so với tổng ghi 5.512) — số liệu sưu tầm có sai lệch, cần đối chiếu bản gốc nếu dùng để luyện tính.</li>
+          <li><b>Câu 3 (2đ) — Rủi ro về hiệu suất sử dụng vốn, CTCP địa ốc Poma</b> (triệu đồng): Tổng tài sản 201.833.546 → 257.734.876; nợ phải trả 160.660.433 → 212.917.146; VCSH 41.173.113 → 44.817.730; DT 33.938.750 / 41.151.000; giá vốn 27.600.300 / 36.778.800.</li>
+          <li><b>Câu 4 (2đ) — So sánh tài sản 2 Cty BĐS DX và NL cuối 2022</b> (tỷ đồng): Tổng tài sản DX 30.318 / NL 27.085; TSNH 27.370 / 23.719; TSDH 2.948 / 3.366; hàng tồn kho 14.031 / 14.830 (trong đó BĐS dở dang DX 12.049 / NL 14.830).</li>
+          <li><b>Câu 5 (2đ) — Lưu chuyển tiền tệ hoạt động tài chính, DN du lịch</b> (triệu đồng, N/N-1): Thu phát hành cổ phiếu 86.700 / 130.400; tiền vay nhận được 22.600 / 39.800; trả nợ gốc vay (16.870) / (38.980); cổ tức đã trả (32.000) / (45.980). (Có lời giải tự tính ở Chuyên đề 5, mục Bài tập nâng cao.)</li>
+        </ul>
+        <h4>Đề lẻ</h4>
+        <ul>
+          <li><b>Câu 1</b> — Công nợ phải thu VNC (phải thu ngắn hạn 5.852.900 / 5.941.318; dài hạn 2.799.711 / 2.365.000; phải thu khách hàng 1.419.873 / 2.115.682, năm N-1: 1.849.400; DT thuần 3.295.958 / 7.531.257).</li>
+          <li><b>Câu 2</b> — Tổng Cty Điện lực Z (DT thuần 46.783 / 42.686 tỷ đồng; LN thuần HĐKD 15 / 273; LN sau thuế 29 / 244).</li>
+          <li><b>Câu 3</b> — Poma (như đề chẵn nhưng yêu cầu rủi ro về huy động vốn &amp; khả năng thanh toán; lưu chuyển tiền thuần HĐKD 20.007.764 / 9.720.310; nợ quá hạn, đến hạn 10.000.600 / 7.808.000; EBIT 350.800 / 123.900; lãi vay 89.700 / 63.800).</li>
+          <li><b>Câu 4</b> — So sánh nguồn vốn DX/NL (nợ phải trả 16.069 / 13.742; VCSH 8.506 / 8.977; tổng vay 5.772 / 5.179).</li>
+          <li><b>Câu 5</b> — Lưu chuyển tiền HĐKD DN xây dựng (tiền thu bán hàng 86.700 / 130.400; chi trả nhà cung cấp −42.600 / −39.800; chi trả người lao động −6.870 / −8.980; chi trả lãi vay −12.090 / −8.980; nộp thuế TNDN −3.800 / −4.789; tiền thu khác 28.900 / 10.890).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="paper">
+      <summary>Đề 2022 — chẵn &amp; lẻ <span class="badge b-exp">Sưu tầm — không chính thức</span><span class="chev">▾</span></summary>
+      <div class="pbody">
+        <p class="src">Nguồn: Gonnapass — <a href="https://gonnapass.com/de-thi-cpa-va-dap-tham-khao-mon-phan-tich-tai-chinh-2022/" target="_blank" rel="noopener">gonnapass.com (đề 2022)</a>; bản cũ hơn: <a href="https://gonnapass.com/de-thi-cpa-mon-phan-tich-hoat-dong-tai-chinh-nang-cao-2022/" target="_blank" rel="noopener">gonnapass.com</a>. <i>Lưu ý:</i> thứ tự câu trong bản web bị xáo trộn, vài bảng bị cắt “…”.</p>
+        <h4>Đề chẵn</h4>
+        <ul>
+          <li><b>Câu 1 — Sinh lời, CTCP Tiến Bộ</b> (triệu đồng, 2019–2021): Đánh giá ROA, ROE; thiết lập phương trình ROE với hệ số tài sản/VCSH, hiệu suất sử dụng tài sản, hệ số sinh lời hoạt động. Thuế TNDN 20%; ROA bình quân ngành 12%, ROE bình quân ngành 16%.</li>
+          <li><b>Câu 2 — Khả năng thanh toán, CTCP Gia Thịnh</b> (1.000 đồng, 31/12/N): Hệ số KNTT nợ ngắn hạn 1,280; nhanh 0,880; tức thời 0,240; tổng quát còn “?” — hoàn thiện bảng, phân tích và trả lời có tiếp tục cho vay ngắn hạn không.</li>
+          <li><b>Câu 3 — Rủi ro, Cty thép P</b> (triệu đồng): Tổng tài sản 16.725.096 (N-2) / 19.834.173 (N-1) / 21.011.095 (N); nợ phải trả 11.082.191 / 14.651.982 / 18.608.025; VCSH 5.642.905 / 5.182.191 / 2.403.070; LN sau thuế −1.245.312 (N-1) / −988.751 (N). (Có lời giải tự tính ở Chuyên đề 8, mục Bài tập nâng cao.)</li>
+          <li><b>Câu 4</b> — So sánh 2 khách sạn OPS &amp; DAP, BCTC 6 tháng đầu 2022.</li>
+          <li><b>Câu 5</b> — Huy động &amp; sử dụng vốn Cty thép HP (nguồn: BCHN 31/12/200N).</li>
+        </ul>
+        <h4>Đề lẻ</h4>
+        <ul>
+          <li><b>Câu 1 — Hiệu suất sử dụng tài sản, CTCP Thành Công</b> (2019–2021): Tổng DT &amp; thu nhập 8.000 / 10.000 / 12.000; tổng tài sản cuối năm 7.000 / 9.000 / 11.000; TSNH cuối năm 4.000 / 6.000 / 9.000.</li>
+          <li><b>Câu 2 — KNTT nợ dài hạn, Cty Ban Mai:</b> KNTT nợ ngắn hạn 1,357; nhanh 0,710; lãi vay năm N 42.596 (1.000đ); LN trước thuế 1.684.820.</li>
+          <li><b>Câu 3 — Rủi ro Cty thép HM:</b> Tổng tài sản 52.099.779 / 33.900.188 / 26.004.158; nợ 37.747.037 / 21.226.926 / 15.330.848; VCSH 14.352.742 / 12.673.262 / 10.673.310; LN trước thuế −987.544 / −1.892.453; LN sau thuế bằng LN trước thuế (không có thuế do lỗ).</li>
+          <li><b>Câu 4</b> — MNB &amp; MTC (may mặc, 30/06/2022): so sánh sử dụng nguồn vốn thường xuyên theo tính ổn định nguồn tài trợ.</li>
+          <li><b>Câu 5 — Huy động vốn &amp; quan hệ tài sản–nguồn vốn, Cty thiết bị tin học TGG:</b> Tổng tài sản 46.030.600 (đầu năm) → 62.971.300 (cuối năm); nợ phải trả 30.549.200 → 42.593.100; VCSH 15.481.400 → 20.378.200.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="paper">
+      <summary>Năm 2021 — không có đề <span class="badge b-info">Kỳ thi không tổ chức</span><span class="chev">▾</span></summary>
+      <div class="pbody">
+        <p><b>Năm 2021 không có đề thi</b> vì kỳ thi năm đó <b>không tổ chức do sự kiện Covid</b> — đây là “không có kỳ thi”, khác với “chưa tìm thấy đề”. Nguồn ghi nhận: Gonnapass (môn Kế toán) — <a href="https://gonnapass.com/de-thi-cpa-mon-ke-toan-2021-co-dap-tham-khao/" target="_blank" rel="noopener">gonnapass.com</a>. Theo lịch sử kỳ thi (Wikipedia, nguồn thứ cấp): kỳ 2020 bị hoãn nhiều lần rồi tổ chức lại ngày 14, 15, 21, 22/05/2022 — đừng nhầm mốc này với kỳ thi 2022.</p>
+      </div>
+    </details>
+
+    <details class="paper">
+      <summary>Đề 2020 — chẵn &amp; lẻ <span class="badge b-exp">Sưu tầm — không chính thức</span><span class="chev">▾</span></summary>
+      <div class="pbody">
+        <p class="src">Nguồn: Gonnapass — <a href="https://gonnapass.com/de-thi-cpa-va-dap-tham-khao-mon-phan-tich-tai-chinh-2020/" target="_blank" rel="noopener">gonnapass.com (đề 2020)</a>. Đáp án tham khảo phải mua sách.</p>
+        <h4>Đề chẵn</h4>
+        <ul>
+          <li><b>Câu 1 — Rủi ro qua cơ cấu nguồn vốn &amp; KNTT, CTCP Thép DLL</b> (triệu đồng): Tổng tài sản 2.428.344 (31/12/2017) / 2.826.207 (2018) / 2.793.381 (2019); nợ phải trả 1.271.546 / 1.696.326 / 1.803.969 (ngắn hạn 1.223.043 / 1.646.443 / 1.757.127); VCSH 1.156.798 / 1.129.881 / 989.412; DT 3.464.610 (2018) / 2.517.200 (2019); lãi vay 67.683 / 86.096; LN trước thuế −14.086 / −137.243.</li>
+          <li><b>Câu 2 — Dupont ROE, Cty Ngân Hà</b> (triệu đồng): TSNH 35.800 (N) / 33.000 (N+1); TSDH 16.800 / 21.000; tổng tài sản 52.600 / 54.000; nợ 16.800 / 15.000; VCSH 35.800 / 39.000; LN sau thuế 22.320 / 22.392; DT thuần 120.000 / 95.000. (Có lời giải tự tính ở Chuyên đề 7, mục Bài tập nâng cao.)</li>
+          <li><b>Câu 3 — Quan hệ tài sản–nguồn vốn, VBA Airlines</b> (tỷ đồng): Tổng tài sản 76.368 (31/12/2018) / 76.455 (2019) — <i>lưu ý bản sưu tầm ghi tổng nguồn vốn 82.390, không khớp tổng tài sản</i> — cộng tiền thuê tối thiểu phải trả theo hợp đồng thuê hoạt động không huỷ ngang: 82.187 / 116.566.</li>
+          <li><b>Câu 4 — Sinh lời HABG + khả năng tạo tiền BHV:</b> HABG: tổng tài sản đầu/cuối năm N 9.203.000 / 7.772.000 (N-1: 9.621.000 / 9.202.000); VCSH 4.930.000 / 5.182.000 (N-1: 4.521.000 / 5.203.000); DT 9.100.000 / 9.335.000; LN sau thuế 484.300 / 523.100. BHV: lưu chuyển tiền thuần HĐKD 7.642 / 7.715; HĐĐT −27.474 / −18.063; HĐTC 11.114 / 12.377; tiền cuối năm 2.615 / 4.545 (tỷ đồng). (BHV có lời giải tự tính ở Chuyên đề 5, mục Bài tập nâng cao.)</li>
+        </ul>
+        <h4>Đề lẻ</h4>
+        <ul>
+          <li><b>Câu 1 — Rủi ro qua tài trợ &amp; sinh lời, CTCP dược HT</b> (triệu đồng): Tổng tài sản 604.780 (2017) / 607.099 (2018) / 709.353 (2019); nợ 374.441 / 355.731 / 416.575; VCSH 230.339 / 251.368 / 292.778; DT 1.674.297 / 2.007.290; LN sau thuế 81.711 / 90.501.</li>
+          <li><b>Câu 2 — Dupont ROE, Cty Hà Song:</b> Phải thu khách hàng 110.655 / 144.525; HTK 172.195 / 175.122; phải trả người bán 128.425 / 150.125; tổng tài sản 978.999 / 1.045.625; VCSH 450.520 / 500.250; LN sau thuế 134.918 / 94.385; DT thuần 1.690.648 / 1.698.773.</li>
+          <li><b>Câu 3</b> — Nguồn vốn BVD Airlines.</li>
+          <li><b>Câu 4 — Mức độ độc lập tài chính Cty thép Zapha</b> (hệ số tài trợ, tự tài trợ TSDH, đầu tư dài hạn tổng quát; tổng tài sản 78.223.000 → 101.776.000; nợ 37.600.000 → 53.989.000; VCSH 40.623.000 → 47.787.000).</li>
+          <li><b>Câu 5 — Cty VUH</b> (tài sản 2.428.344 / 2.826.207 / 2.793.381 — trùng số liệu Thép DLL ở đề chẵn, dấu hiệu sưu tầm ghép số liệu).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="paper">
+      <summary>Đề 2019 — chẵn &amp; lẻ <span class="badge b-exp">Sưu tầm — không chính thức</span><span class="chev">▾</span></summary>
+      <div class="pbody">
+        <p class="src">Nguồn: Gonnapass — <a href="https://gonnapass.com/de-thi-cpa-va-dap-tham-khao-mon-phan-tich-tai-chinh-2019/" target="_blank" rel="noopener">gonnapass.com (đề 2019)</a>; bản đề chẵn riêng: <a href="https://gonnapass.com/de-chan-mon-phan-tich-cpa-2019/" target="_blank" rel="noopener">gonnapass.com</a>. Đáp án tham khảo phải mua sách.</p>
+        <h4>Đề chẵn</h4>
+        <ul>
+          <li><b>Câu 1 (lý thuyết):</b> Nội dung cơ bản rủi ro tài chính; bảng nhận diện rủi ro theo các hệ số tài chính chủ yếu; cơ sở dữ liệu dùng để nhận diện rủi ro và ý nghĩa từng cơ sở.</li>
+          <li><b>Câu 2 — ROA, ROE, Cty Bánh kẹo MP</b> (triệu đồng): Tổng tài sản năm N: đầu năm 510.472 / cuối năm 811.904 (năm N-1: 620.400); VCSH 352.302 / 392.699 (N-1: 300.200); DT 867.365 / 1.000.799; LN sau thuế 33.701 / 42.082.</li>
+          <li><b>Câu 3 — Dấu hiệu rủi ro, CTCP TTP may mặc</b> (tỷ đồng): LN trước thuế 138 (2017) / 218 (2018); lãi vay 74 / 105; tổng tài sản 1.715 (2016) / 2.084 (2017) / 2.423 (2018); nợ phải trả 1.198 / 1.525 / 1.680; VCSH 517 / 559 / 743.</li>
+          <li><b>Câu 4 — Sinh lời Cty Thép DN</b> (triệu đồng): Tổng tài sản 612.986 / 671.260 / 665.165; DT thuần 1.356.212 / 1.465.511; LN sau thuế 29.158 / 21.579.</li>
+          <li><b>Câu 5 — Cty Hoàng Mỹ</b> (triệu đồng, 2018–2019): DT thuần 400.000 / 500.000 (bán chịu 60%); TSNH 216.000 / 243.000; tiền 8.100 / 9.720; đầu tư CK ngắn hạn 160.000–180.000 / 184.000; phải thu khách hàng 27.900–47.900 / 48.660 — yêu cầu phân tích quan hệ tài sản–nguồn vốn và hiệu suất sử dụng vốn (luân chuyển TSNH, HTK, phải thu).</li>
+        </ul>
+        <h4>Đề lẻ</h4>
+        <ul>
+          <li><b>Câu 1</b> — Hệ thống chỉ tiêu sinh lời của vốn (lý thuyết).</li>
+          <li><b>Câu 2</b> — KNTT tổng quát &amp; nhanh của Bánh kẹo MP (TSNH 231.929 → 554.896; nợ ngắn hạn 157.600 → 295.735; nợ dài hạn 570 → 123.470).</li>
+          <li><b>Câu 3</b> — CTCP VAC may mặc (lưu chuyển tiền thuần HĐKD −66 tỷ 2017 / 116 tỷ 2018; DT thuần 2.489 / 3.613; LN sau thuế 116 / 184).</li>
+          <li><b>Câu 4</b> — Sinh lời Cty Dược HG (tổng tài sản 3.369.696 / 3.857.595 / 4.087.480; DT thuần 3.783.045 / 4.062.753; LN sau thuế 688.642 / 642.389) + ảnh hưởng của hệ số tự tài trợ bình quân tới ROE.</li>
+          <li><b>Câu 5</b> — Cty Hoàng Phú (xem lời giải tự tính ở Chuyên đề 3, mục Bài tập nâng cao): TSNH 48.000 / 54.000; TSDH 48.000 / 90.000; nợ ngắn hạn 8.640 / 12.240; nợ dài hạn 4.800 / 17.760; VCSH 82.560 / 114.000.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="paper">
+      <summary>Đề 2018 — chẵn &amp; lẻ <span class="badge b-exp">Sưu tầm — không chính thức</span><span class="chev">▾</span></summary>
+      <div class="pbody">
+        <p class="src">Nguồn: Gonnapass — <a href="https://gonnapass.com/de-thi-cpa-va-dap-tham-khao-mon-phan-tich-tai-chinh-2018/" target="_blank" rel="noopener">gonnapass.com (đề 2018)</a>. Đáp án tham khảo phải mua sách.</p>
+        <h4>Đề chẵn</h4>
+        <ul>
+          <li><b>Câu 1 (lý thuyết):</b> Phân tích huy động vốn qua chỉ tiêu trên CĐKT; cơ cấu nguồn vốn huy động có tối ưu không và chỉ tiêu nhận định.</li>
+          <li><b>Câu 2 (lý thuyết):</b> Đòn bẩy kinh doanh (khái niệm, công thức, ý nghĩa, rủi ro/lợi ích khi DOL cao); thời gian hoàn vốn, công suất hoà vốn, khoảng cách an toàn về công suất.</li>
+          <li><b>Câu 3 — CTCP xi măng BC</b> (triệu đồng): Tổng tài sản 5.606.090 / 5.128.650 / 5.041.120; nợ 4.141.880 / 3.428.480 / 3.202.700; VCSH 1.464.210 / 1.700.170 / 1.838.420; DT 4.153.000 / 4.280.210; LN sau thuế 253.390 / 269.430.</li>
+          <li><b>Câu 4 — Cty X (3 sản phẩm A, B, C):</b> tỷ lệ biến phí/DT 60% / 65% / 50%; tổng định phí chung 199.640.000 đồng; DT dự kiến 600.000.000 đồng (A 30%, B 45%, C 25%): lập BCKQ dạng lãi trên biến phí, DT hoà vốn từng mặt hàng &amp; toàn Cty, DOL, chọn sản phẩm tăng sản lượng, DT để đạt LN mong muốn 78.890.000 đồng.</li>
+          <li><b>Câu 5 — Cty may NB</b> (triệu đồng): Tổng tài sản 1.582.000 / 1.760.000 / 1.822.500; DT thuần 2.827.500 / 3.582.400; LN sau thuế 66.466 / 67.480: sinh lời ròng của vốn kinh doanh theo các hệ số.</li>
+        </ul>
+        <h4>Đề lẻ</h4>
+        <ul>
+          <li><b>Câu 1 (lý thuyết):</b> Phân tích sử dụng vốn (tài sản); có cơ cấu tài sản tối ưu không.</li>
+          <li><b>Câu 2 (lý thuyết):</b> Điểm hoà vốn theo sản lượng, doanh thu, thời gian, công suất; điều kiện &amp; ứng dụng.</li>
+          <li><b>Câu 3 — Cty khoáng sản X:</b> Tự tài trợ &amp; KNTT; bảo đảm vốn theo tính ổn định nguồn tài trợ (tổng tài sản 270.000 / 278.500; nợ 127.000 / 133.100; VCSH 143.000 / 145.400).</li>
+          <li><b>Câu 4 — Cty AB (X, Y):</b> lập BCKQ lãi trên biến phí, DT hoà vốn, thêm sản phẩm Z (giá 80.000, biến phí 65.000, số lượng 5.000).</li>
+          <li><b>Câu 5 — Rủi ro 2 DN xây dựng:</b> Hệ số nợ/tài sản bình quân A 0,72 / B 0,62 (ngành 0,67); KNTT nợ ngắn hạn 1,33 / 1,32 (ngành 1,32); BEP 12,33% / 11,00%; lãi suất vay bình quân 11,25% / 11,15%: DN nào dùng đòn bẩy tài chính tích cực cho ROE.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="paper">
+      <summary>Đề 2017 — chẵn &amp; lẻ <span class="badge b-exp">Sưu tầm — không chính thức</span><span class="chev">▾</span></summary>
+      <div class="pbody">
+        <p class="src">Nguồn: Gonnapass — <a href="https://gonnapass.com/de-thi-cpa-mon-phan-tich-hoat-dong-tai-chinh-nang-cao-2017/" target="_blank" rel="noopener">gonnapass.com (đề 2017)</a>. Đáp án tham khảo phải mua sách.</p>
+        <h4>Đề chẵn</h4>
+        <ul>
+          <li><b>Câu 1 (lý thuyết):</b> Rủi ro tài chính là gì; bảng dấu hiệu rủi ro qua chỉ tiêu tài chính căn bản.</li>
+          <li><b>Câu 2 (lý thuyết):</b> Điểm hoà vốn (khái niệm, ý nghĩa, điều kiện, công thức sản lượng &amp; doanh thu hoà vốn).</li>
+          <li><b>Câu 3 — CTCP Bánh kẹo X</b> (triệu đồng): Tổng tài sản 337.350 / 384.300 / 505.400; nợ 127.980 / 162.370 / 178.120 (ngắn hạn 127.560 / 161.840 / 177.500); VCSH 209.370 / 221.930 / 327.280: khái quát tình hình tài chính; bảo đảm vốn theo tính ổn định nguồn tài trợ. (Có lời giải tự tính ở Chuyên đề 1, mục Bài tập nâng cao.)</li>
+          <li><b>Câu 4 — Cty T (2 sản phẩm A, B, năm 20×6):</b> A: sản lượng 3.500, giá 800, biến phí 200; B: 7.000, giá 1.000, biến phí 500 (ngàn đồng/sp); định phí 4.600.000 ngàn đồng: lập BCKQ lãi trên biến phí, chọn sản phẩm tăng/giảm để LN tăng thêm 200.000 ngàn đồng khi năng lực bị giới hạn, thời gian hoàn vốn (360 ngày).</li>
+          <li><b>Câu 5 — Cty thương mại Hoà An:</b> Vòng quay HTK 4,99 (2015) / 4,57 (2016); vòng quay phải thu 12,7 / 14,7; vòng quay phải trả 4,76 / 5,13; DT thuần 17.500 / 18.375 / 19.845; hệ số giá vốn 60% / 57% / 53%; chi phí bán hàng 10% / 12% / 14%; chi phí quản lý 20% / 20% / 19%; hệ số sinh lời hoạt động 7% / 8,2% / 10,5% (đánh giá chính sách bán chịu 30 ngày → 25 ngày; chiến lược cạnh tranh theo giá; quản trị chi phí &amp; sinh lời).</li>
+        </ul>
+        <h4>Đề lẻ</h4>
+        <ul>
+          <li><b>Câu 1 (lý thuyết):</b> Chỉ tiêu KNTT (công thức, ý nghĩa); bảng nhu cầu &amp; khả năng đáp ứng thanh toán.</li>
+          <li><b>Câu 2 (lý thuyết):</b> Ý nghĩa phân tích rủi ro; với mỗi mục tiêu (KNTT, hiệu suất sử dụng vốn, sinh lời) nêu 2 hệ số nhận biết rủi ro (công thức, nội dung kinh tế, dấu hiệu).</li>
+          <li><b>Câu 3 — CTCP Bánh kẹo Y:</b> Tổng tài sản 347.350 / 389.300 / 475.400; phải thu ngắn hạn khách hàng 50.750 / 66.840 / 66.990: quan hệ tài sản–nguồn vốn; công nợ phải thu.</li>
+          <li><b>Câu 4 — Cty ABC (X, Y):</b> phân tích LN gộp theo nhân tố (sản lượng, kết cấu, giá bán, giá vốn) và luân chuyển HTK (360 ngày).</li>
+          <li><b>Câu 5 — Cty T&amp;T (2014–2016):</b> DT thuần 17.000 / 18.360 / 19.829; giá vốn 10.200 / 10.098 / 9.914; LN gộp 6.800 / 8.262 / 9.914; LN sau thuế 1.168 / 1.462 / 1.892: hệ số chi phí, sinh lời hoạt động, chiến lược cạnh tranh, yếu tố biến động LN 2016.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="paper">
+      <summary>Đề 2016 — chẵn &amp; lẻ <span class="badge b-exp">Sưu tầm — không chính thức</span><span class="chev">▾</span></summary>
+      <div class="pbody">
+        <p class="src">Nguồn: Gonnapass — <a href="https://gonnapass.com/de-thi-cpa-mon-phan-tich-hoat-dong-tai-chinh-nang-cao-2016/" target="_blank" rel="noopener">gonnapass.com (đề 2016)</a>. Đáp án tham khảo phải mua sách.</p>
+        <h4>Đề chẵn</h4>
+        <ul>
+          <li><b>Câu 1 (lý thuyết):</b> Hệ thống chỉ tiêu phân tích khái quát tình hình tài chính trên BCTC, ý nghĩa từng nhóm.</li>
+          <li><b>Câu 2 (lý thuyết):</b> Công thức &amp; tính chất ảnh hưởng của nhân tố sản lượng và kết cấu mặt hàng tới LN gộp bán hàng.</li>
+          <li><b>Câu 3 — Cty TNHH Đức Lợi</b> (triệu đồng): Tổng nguồn vốn 2.680.000 (cuối N-1) / 2.540.000 (N) / 3.520.000 (N+1); nợ 1.240.000 / 1.280.000 / 1.560.000; VCSH 1.440.000 / 1.260.000 / 1.960.000; DT thuần 21.408.000 (N) / 35.568.480 (N+1); LN sau thuế 2.238.960 / 2.863.224: phân tích ROE và ảnh hưởng của hệ số tài sản/VCSH, hiệu suất sử dụng tài sản, hệ số sinh lời hoạt động.</li>
+          <li><b>Câu 4 — Cty XYZ (2015, triệu đồng):</b> A: DT 20.000, biến phí 4.000, lãi trên biến phí 16.000; B: DT 60.000, biến phí 24.000, lãi trên biến phí 36.000; định phí 32.500; LN 19.500: DT hoà vốn; thay đổi kết cấu để LN 2016 đạt 25.500 khi DT không đổi; lập BCKQ 2016 với tỷ trọng DT A 62,5% / B 37,5%.</li>
+          <li><b>Câu 5 — Cty EFH:</b> KNTT nhanh 1,3 / 1,7 / 1,2 (ngành 0,8); KNTT tổng quát “?” (ngành 1,98); ROA 25% / 23% / 20% (ngành 22%); hệ số tài trợ 0,34 / 0,42 / 0,68 (ngành 0,49): điền số, nhận xét khái quát, chọn 2 chỉ tiêu quan trọng nhất khi cho vay ngắn hạn.</li>
+        </ul>
+        <h4>Đề lẻ</h4>
+        <ul>
+          <li><b>Câu 1 (lý thuyết):</b> Công thức &amp; nội dung kinh tế các chỉ tiêu phân tích công nợ.</li>
+          <li><b>Câu 2 (lý thuyết):</b> DOL và quan hệ với kết cấu chi phí.</li>
+          <li><b>Câu 3 — Cty Toàn Mỹ:</b> phân tích ROA và ảnh hưởng của hiệu suất sử dụng vốn, hệ số sinh lời hoạt động; giải pháp tăng ROA.</li>
+          <li><b>Câu 4 — CTCP X:</b> luân chuyển HTK (vòng quay, kỳ luân chuyển; ngành 25 ngày; năm 360 ngày) và công nợ phải thu khách hàng (ngành 25 ngày).</li>
+          <li><b>Câu 5 — Cty K&amp;K:</b> phân tích thực hiện kế hoạch LN gộp theo nhân tố.</li>
+        </ul>
+      </div>
+    </details>
+    <p class="note">Các năm trước 2016 chưa kiểm tra sâu trong đợt tổng hợp này (chỉ có ví dụ Tuonthi dẫn đề Phân tích 2015 — xem Chuyên đề 2 ở mục Bài tập nâng cao). Đề 2025 nằm ngoài phạm vi tổng hợp và chưa xác minh được, nên không đưa vào trang.</p>
+  </section>
+
+  <section id="nangcao">
+    <h2>Ngân hàng bài tập nâng cao theo 8 chuyên đề</h2>
+    <p class="sec-sub">Mỗi bài dưới đây lấy <b>đề và số liệu thật từ các đề thi sưu tầm</b> ở mục Đề thi cũ (ghi rõ năm, câu, nguồn). Phần lời giải là <b>lời giải tự tính</b> theo công thức chuẩn của môn học — <b>KHÔNG phải đáp án hay barem chính thức</b> của Hội đồng thi (nhắc lại: không tìm được lời giải chi tiết miễn phí hay barem chính thức nào cho môn Phân tích; đáp án tham khảo của Gonnapass phải mua sách). Kết luận phân tích là diễn giải từ số đã tính. Nơi đề gốc thiếu dữ kiện thì ghi rõ là không tính được tới cùng, không tự thêm giả thiết. Tự làm trước, rồi mới mở lời giải.</p>
+
+    <div class="ex">
+      <h3>Chuyên đề 1 — Khái quát phân tích tài chính</h3>
+      <div class="src">Bài từ đề thật: 2017 chẵn Câu 3 — CTCP Bánh kẹo X (triệu đồng) · Lời giải tự tính — không phải đáp án/barem chính thức</div>
+      <p class="de"><b>Đề:</b> Tổng tài sản 384.300 (31/12/N-1) → 505.400 (31/12/N); TSNH 270.400 → 362.200; TSDH 113.900 → 143.200; nợ phải trả 162.370 → 178.120 (ngắn hạn 161.840 → 177.500; dài hạn 530 → 620); VCSH 221.930 → 327.280.</p>
+      <details class="solwrap"><summary>Xem lời giải tự tính từng bước</summary>
+        <ol>
+          <li><b>Quy mô:</b> tổng tài sản tăng 505.400 − 384.300 = 121.100, tức +31,51%. VCSH tăng 105.350 (+47,47%); nợ phải trả chỉ tăng 15.750 (+9,70%) — tài sản tăng chủ yếu do VCSH tăng, không phải do vay nợ.</li>
+          <li><b>Cơ cấu tài sản:</b> TSNH chiếm 270.400/384.300 = 70,36% → 362.200/505.400 = 71,66%; TSDH 29,64% → 28,34% — cơ cấu dịch nhẹ về ngắn hạn.</li>
+          <li><b>Cơ cấu nguồn vốn:</b> hệ số tự tài trợ = VCSH/Tổng tài sản = 221.930/384.300 = 57,75% → 327.280/505.400 = 64,76%; hệ số nợ = 42,25% → 35,24%. Mức độ độc lập tài chính tăng.</li>
+          <li><b>Khái quát KNTT:</b> KNTT tổng quát = Tổng tài sản/Nợ phải trả = 384.300/162.370 = 2,367 → 505.400/178.120 = 2,838; KNTT nợ ngắn hạn = TSNH/Nợ ngắn hạn = 270.400/161.840 = 1,671 → 362.200/177.500 = 2,041.</li>
+        </ol>
+        <div class="nx"><b>Kết luận:</b> tình hình tài chính cải thiện theo cả 3 hướng — quy mô tăng, tự tài trợ tăng, KNTT tăng; rủi ro tài chính giảm (theo nghĩa hẹp của các chỉ tiêu này). Hạn chế: chưa có số liệu kết quả kinh doanh nên chưa kết luận về sinh lời.</div>
+      </details>
+    </div>
+
+    <div class="ex">
+      <h3>Chuyên đề 2 — Huy động và sử dụng vốn</h3>
+      <div class="src">Bài từ đề thật: 2024 chẵn Câu 5 — Cty thương mại Toàn Thắng (triệu đồng) · Lời giải tự tính — không phải đáp án/barem chính thức</div>
+      <p class="de"><b>Đề:</b> Tổng tài sản 137.590 (N) → 147.100 (N+1) → 168.920 (N+2); nợ phải trả 54.090 → 56.800 → 70.670 (ngắn hạn 49.870 → 50.500 → 55.400; dài hạn 4.220 → 6.300 → 15.270); VCSH 83.500 → 90.300 → 98.250; TSNH 56.790 → 57.460 → 57.710; TSDH 80.800 → 89.640 → 111.210.</p>
+      <details class="solwrap"><summary>Xem lời giải tự tính từng bước</summary>
+        <ol>
+          <li><b>Huy động vốn (nguồn vốn):</b> tổng nguồn vốn tăng +6,91% (N→N+1) rồi +14,83% (N+1→N+2). Cơ cấu: nợ chiếm 39,31% → 38,61% → 41,84%; VCSH 60,69% → 61,39% → 58,16%. Giai đoạn cuối, nợ dài hạn tăng mạnh (6.300 → 15.270, +142,38%) — DN chuyển sang huy động dài hạn.</li>
+          <li><b>Sử dụng vốn (tài sản):</b> TSNH chiếm 41,27% → 39,06% → 34,16%; TSDH 58,73% → 60,94% → 65,84%. Trong TSNH, HTK tăng 25.670 → 27.600 → 26.780; phải thu ngắn hạn tăng liên tục 17.890 → 18.560 → 19.720; tiền giảm rồi tăng (5.340 → 4.780 → 5.780). TSCĐ hữu hình nguyên giá tăng 124.000 → 130.000 → 156.900 — DN đang mở rộng đầu tư dài hạn.</li>
+          <li><b>Đối chiếu:</b> tăng trưởng tài sản dài hạn (+24,06% ở năm cuối) nhanh hơn tăng trưởng tổng tài sản (+14,83%) và được tài trợ bằng cả nợ dài hạn và VCSH tăng thêm — chính sách huy động dài hạn cho đầu tư dài hạn, phù hợp nguyên tắc cân đối kỳ hạn; nhưng tỷ trọng nợ tăng trở lại ở năm cuối là điểm cần theo dõi.</li>
+        </ol>
+        <div class="nx"><b>Nguồn bổ sung (phương pháp, không phải đáp án chính thức):</b> Tuonthi có bài hướng dẫn dạng này với ví dụ đề Phân tích 2015 chẵn Câu 5 YC2 (quy mô vốn tăng 6.650, tương đương 20%; trong đó nợ +1.330 (+8%), VCSH +5.320 (+31%)) — <a href="https://tuonthi.com/phan-tich-huy-dong-va-su-dung-von/" target="_blank" rel="noopener">tuonthi.com</a>.</div>
+      </details>
+    </div>
+
+    <div class="ex">
+      <h3>Chuyên đề 3 — Tài trợ và bảo đảm vốn</h3>
+      <div class="src">Bài từ đề thật: 2019 lẻ Câu 5 — Cty Hoàng Phú (triệu đồng, 2018–2019) · Lời giải tự tính — không phải đáp án/barem chính thức</div>
+      <p class="de"><b>Đề:</b> TSNH 48.000 → 54.000 (tiền 1.800 → 2.160; CK ngắn hạn 1.800 → 1.440; phải thu khách hàng 21.600 → 28.800; HTK 22.800 → 21.600); TSDH 48.000 → 90.000; tổng tài sản 96.000 → 144.000; nợ ngắn hạn 8.640 → 12.240; nợ dài hạn 4.800 → 17.760; VCSH 82.560 → 114.000.</p>
+      <details class="solwrap"><summary>Xem lời giải tự tính từng bước (làm tròn 3 chữ số thập phân như đề yêu cầu)</summary>
+        <ol>
+          <li><b>Mức độ độc lập tài chính:</b> hệ số tự tài trợ = VCSH/Tổng tài sản = 82.560/96.000 = 0,860 → 114.000/144.000 = 0,792 (giảm nhưng vẫn rất cao); hệ số tài sản/VCSH = 1,163 → 1,263; hệ số tự tài trợ TSDH = VCSH/TSDH = 82.560/48.000 = 1,720 → 114.000/90.000 = 1,267 — VCSH vẫn tài trợ toàn bộ TSDH và thừa ra tài trợ một phần TSNH.</li>
+          <li><b>Tính ổn định nguồn tài trợ:</b> nguồn vốn dài hạn = VCSH + nợ dài hạn = 87.360 → 131.760; hệ số tài trợ thường xuyên = Nguồn vốn dài hạn/Tổng tài sản = 0,910 → 0,915 — ổn định, tăng nhẹ. Vốn lưu động ròng = TSNH − Nợ ngắn hạn = 39.360 → 41.760; nguồn vốn dài hạn − TSDH = 87.360 − 48.000 = 39.360 → 131.760 − 90.000 = 41.760 (khớp nhau, kiểm chứng chéo).</li>
+          <li><b>Khả năng thanh toán nợ:</b> KNTT tổng quát = Tổng tài sản/Nợ phải trả = 96.000/13.440 = 7,143 → 144.000/30.000 = 4,800; KNTT ngắn hạn = TSNH/Nợ ngắn hạn = 48.000/8.640 = 5,556 → 54.000/12.240 = 4,412; KNTT nhanh = (TSNH − HTK)/Nợ ngắn hạn = (48.000 − 22.800)/8.640 = 2,917 → (54.000 − 21.600)/12.240 = 2,647.</li>
+        </ol>
+        <div class="nx"><b>Kết luận:</b> DN độc lập tài chính cao, nguồn tài trợ ổn định, KNTT rất cao nhưng giảm dần do nợ dài hạn tăng nhanh (đầu tư TSDH gần gấp đôi) — chưa phải rủi ro, nhưng xu hướng giảm của các hệ số là điểm cần giám sát. <b>Bài tương tự:</b> 2024 chẵn Câu 3 (Cty bia S): nguồn vốn dài hạn 23.710 (2022) → 25.220 (2023); vốn lưu động ròng 17.510 → 19.220; nguồn vốn dài hạn/TSDH 3,824 → 4,203.</div>
+      </details>
+    </div>
+
+    <div class="ex">
+      <h3>Chuyên đề 4 — Công nợ và khả năng thanh toán</h3>
+      <div class="src">Bài từ đề thật: 2023 chẵn Câu 1 — Cty BĐS VNC (triệu đồng) · Lời giải tự tính — không phải đáp án/barem chính thức</div>
+      <p class="de"><b>Đề:</b> Nợ ngắn hạn 10.004.265 → 10.611.266; nợ dài hạn 4.799.815 → 5.559.221; nợ phải trả người bán 1.764.747 (đầu năm N) → 2.274.659 (cuối năm N), năm N-1 là 1.448.027; tổng nguồn vốn 20.820.073 → 22.454.029; giá vốn 3.117.764 (N-1) / 7.220.310 (N).</p>
+      <details class="solwrap"><summary>Xem lời giải tự tính từng bước</summary>
+        <ol>
+          <li><b>Quy mô &amp; cơ cấu công nợ phải trả:</b> tổng nợ phải trả = 14.804.080 → 16.170.487, tăng 1.366.407 (+9,23%). Nợ ngắn hạn chiếm 67,58% → 65,63%; nợ dài hạn 32,42% → 34,37% — cơ cấu dịch nhẹ sang dài hạn, giảm áp lực trả nợ ngắn hạn. Nợ phải trả người bán chiếm 11,92% → 14,07% tổng nợ — DN chiếm dụng vốn của nhà cung cấp nhiều hơn.</li>
+          <li><b>Vòng quay phải trả người bán</b> = Giá vốn / Số dư bình quân phải trả người bán (dùng giá vốn như số liệu đề cho; lưu ý: công thức chuẩn dùng giá trị mua hàng trong kỳ, ở đây đề chỉ cho giá vốn nên kết quả là xấp xỉ theo dữ liệu đề). Năm N: bình quân = (1.764.747 + 2.274.659)/2 = 2.019.703; vòng quay = 7.220.310/2.019.703 = 3,575 vòng; thời gian thanh toán bình quân = 365/3,575 = 102,10 ngày. Năm N-1: bình quân = (1.448.027 + 1.764.747)/2 = 1.606.387; vòng quay = 3.117.764/1.606.387 = 1,941 vòng; thời gian = 365/1,941 = 188,07 ngày.</li>
+          <li><b>Nhận xét:</b> thời gian trả người bán rút ngắn mạnh (188 → 102 ngày) trong khi giá vốn tăng hơn gấp đôi — DN trả nợ nhà cung cấp nhanh hơn, giảm chiếm dụng vốn, có thể do điều kiện mua hàng thay đổi hoặc DN chủ động cải thiện uy tín thanh toán; cần đối chiếu với vòng quay phải thu (đề lẻ: phải thu khách hàng tăng 1.419.873 → 2.115.682) để xem DN có bị “kẹp” vốn giữa trả nhanh – thu chậm hay không.</li>
+          <li><b>Công thức &amp; ý nghĩa 2 chỉ tiêu KNTT</b> (phần lý thuyết câu hỏi yêu cầu): KNTT tổng quát = Tổng tài sản/Nợ phải trả — đo khả năng trả mọi khoản nợ bằng toàn bộ tài sản; KNTT nhanh = (TSNH − HTK)/Nợ ngắn hạn — đo khả năng trả nợ ngắn hạn bằng tài sản có tính thanh khoản cao, loại HTK khó chuyển đổi nhanh nhất.</li>
+        </ol>
+        <div class="nx"><b>Bài luyện thêm:</b> 2022 chẵn Câu 2 (Gia Thịnh: KNTT ngắn hạn 1,280; nhanh 0,880; tức thời 0,240) và 2022 lẻ Câu 2 (Ban Mai: ngắn hạn 1,357; nhanh 0,710; lãi vay 42.596; LN trước thuế 1.684.820 → KNTT lãi vay = (1.684.820 + 42.596)/42.596 = 40,553 lần — khả năng trả lãi rất cao).</div>
+      </details>
+    </div>
+
+    <div class="ex">
+      <h3>Chuyên đề 5 — Khả năng tạo tiền và lưu chuyển tiền tệ</h3>
+      <div class="src">Bài A từ đề thật: 2020 chẵn Câu 4 — Tổng Cty BHV (tỷ đồng) · Bài B từ đề thật: 2023 chẵn Câu 5 — DN du lịch · Lời giải tự tính — không phải đáp án/barem chính thức</div>
+      <p class="de"><b>Bài A — Đề:</b> Lưu chuyển tiền thuần HĐKD 7.642 (N-1) → 7.715 (N); HĐĐT −27.474 → −18.063; HĐTC 11.114 → 12.377; lưu chuyển thuần trong năm −1.650 → +2.029; tiền đầu năm 4.265 → 2.516; ảnh hưởng tỷ giá 0 → 0,4; tiền cuối năm 2.615 → 4.545.</p>
+      <details class="solwrap"><summary>Xem lời giải tự tính Bài A từng bước</summary>
+        <ol>
+          <li><b>Kiểm tra cân đối:</b> HĐKD + HĐĐT + HĐTC = 7.715 − 18.063 + 12.377 = 2.029 (khớp lưu chuyển thuần trong năm); 2.516 + 2.029 + 0,4 = 4.545,4 ≈ 4.545 (chênh 0,4 do làm tròn trong bản sưu tầm).</li>
+          <li><b>Khả năng tạo tiền:</b> HĐKD tạo tiền dương cả 2 năm và tăng nhẹ (+73, +0,96%) — hoạt động lõi tự tạo tiền. Nhưng HĐKD (7.715) chỉ bù được 42,7% nhu cầu đầu tư (18.063); phần còn lại dựa vào HĐTC (+12.377).</li>
+          <li><b>Cơ cấu HĐTC năm N</b> (chi tiết trong bài): thu phát hành cổ phiếu 0,085; thu từ đi vay 67.944; trả nợ gốc vay (55.554); trả cổ tức (13) → HĐTC ròng 12.377 — DN vay mới ròng 67.944 − 55.554 = 12.390, gần bằng toàn bộ HĐTC ròng; tức HĐTC chủ yếu là vay nợ, không phải phát hành vốn.</li>
+        </ol>
+        <div class="nx"><b>Kết luận Bài A:</b> khả năng tạo tiền từ HĐKD ổn định nhưng chưa đủ tài trợ đầu tư; DN đang trong giai đoạn mở rộng (HĐĐT âm lớn cả 2 năm, dù đã giảm từ −27.474 xuống −18.063) và phụ thuộc vay nợ — rủi ro nằm ở khả năng trả nợ tương lai nếu HĐKD không tăng kịp.</div>
+      </details>
+      <p class="de" style="margin-top:12px"><b>Bài B — Đề:</b> DN du lịch, lưu chuyển tiền HĐTC (triệu đồng, N/N-1): thu phát hành cổ phiếu 86.700 / 130.400; tiền vay nhận được 22.600 / 39.800; trả nợ gốc vay (16.870) / (38.980); cổ tức đã trả (32.000) / (45.980).</p>
+      <details class="solwrap"><summary>Xem lời giải tự tính Bài B</summary>
+        <p>Lưu chuyển thuần HĐTC = 86.700 + 22.600 − 16.870 − 32.000 = <b>60.430</b> (N); năm N-1: 130.400 + 39.800 − 38.980 − 45.980 = <b>85.240</b>. Giảm 24.810 (−29,11%): thu phát hành cổ phiếu giảm 43.700, vay mới giảm 17.200, nhưng trả nợ gốc và trả cổ tức cũng giảm — DN huy động vốn từ HĐTC ít hơn năm trước, trong đó phát hành cổ phiếu vẫn là nguồn chính (79,3% tổng thu HĐTC năm N so với 76,6% năm N-1).</p>
+      </details>
+    </div>
+
+    <div class="ex">
+      <h3>Chuyên đề 6 — Tình hình kinh doanh</h3>
+      <div class="src">Bài từ đề thật: 2024 chẵn Câu 2 — Cty hoá chất công nghiệp (triệu đồng) · Lời giải tự tính — không phải đáp án/barem chính thức</div>
+      <p class="de"><b>Đề:</b> (số liệu đầy đủ ở Đề 2024 chẵn Câu 2, mục Đề thi cũ) DT thuần 2.435.680 → 2.298.760; giá vốn 1.923.400 → 1.876.900; LN gộp 512.280 → 421.860; chi phí tài chính 202.980 → 54.700; chi phí bán hàng 142.800 → 156.450; chi phí quản lý 110.980 → 98.780; LN thuần HĐKD 234.120 → 313.910; LN sau thuế 183.316 → 243.282.</p>
+      <details class="solwrap"><summary>Xem lời giải tự tính từng bước</summary>
+        <ol>
+          <li><b>Biến động:</b> DT thuần 2.435.680 → 2.298.760 (−136.920; −5,62%); giá vốn 1.923.400 → 1.876.900 (−46.500; −2,42%); LN gộp 512.280 → 421.860 (−90.420; −17,65%). Tỷ suất LN gộp/DT: 21,03% → 18,35% (giảm 2,68 điểm %) — giá vốn giảm chậm hơn DT, biên gộp bị ép.</li>
+          <li><b>Chi phí:</b> chi phí bán hàng 142.800 → 156.450 (+9,56%) trong khi DT giảm — tỷ lệ CPBH/DT tăng từ 5,86% lên 6,81%; chi phí quản lý 110.980 → 98.780 (−10,99%), tỷ lệ 4,56% → 4,30% (tiết kiệm tốt); chi phí tài chính 202.980 → 54.700 (−73,05%) — đây là yếu tố đảo chiều kết quả.</li>
+          <li><b>Hiệu quả:</b> LN thuần HĐKD 234.120 → 313.910 (+34,08%); tỷ suất LN thuần HĐKD/DT 9,61% → 13,66%. LN khác 900 → −2.010 (giảm 2.910); LN trước thuế 235.020 → 311.900 (+32,71%); LN sau thuế 183.316 → 243.282 (+32,71%, thuế suất thực tế ≈ 22% cả 2 năm: 51.704/235.020 và 68.618/311.900).</li>
+        </ol>
+        <div class="nx"><b>Kết luận:</b> hiệu quả hoạt động cải thiện nhờ chi phí tài chính giảm mạnh và tiết kiệm chi phí quản lý, <b>không phải</b> nhờ tăng trưởng DT hay biên gộp — DT và biên gộp đều xấu đi, chi phí bán hàng tăng ngược chiều DT là điểm trừ trong quản trị chi phí. <b>Bài luyện thêm cùng dạng:</b> 2023 chẵn Câu 2 (Bình Minh: DT −45,37%, LN sau thuế −70,59%) và 2023 lẻ Câu 2 (Điện lực Z: LN thuần HĐKD 273 → 15 tỷ đồng, gần như mất hết dù DT tăng).</div>
+      </details>
+    </div>
+
+    <div class="ex">
+      <h3>Chuyên đề 7 — Hiệu suất sử dụng vốn và khả năng sinh lời</h3>
+      <div class="src">Bài từ đề thật: 2020 chẵn Câu 2 — Cty Ngân Hà (triệu đồng) · Lời giải tự tính — không phải đáp án/barem chính thức</div>
+      <p class="de"><b>Đề:</b> Tổng tài sản 52.600 (N) / 54.000 (N+1); VCSH 35.800 / 39.000; DT thuần 120.000 / 95.000; LN sau thuế 22.320 / 22.392. Đề yêu cầu làm tròn 2 chữ số thập phân.</p>
+      <details class="solwrap"><summary>Xem lời giải tự tính từng bước</summary>
+        <p><i>Quy ước:</i> dùng số cuối năm vì đề không cho số đầu năm N; nếu dùng số bình quân, kết quả sẽ khác — cần ghi rõ quy ước khi trình bày.</p>
+        <ol>
+          <li><b>ROE</b> = LNST/VCSH = 22.320/35.800 = 62,35% (N) → 22.392/39.000 = 57,42% (N+1): giảm 4,93 điểm % dù LNST tăng nhẹ (+72).</li>
+          <li><b>Phân tích Dupont:</b> ROE = (LNST/DT) × (DT/Tổng tài sản) × (Tổng tài sản/VCSH). Năm N: ROS = 18,60%; hiệu suất sử dụng tài sản = 120.000/52.600 = 2,281 vòng; hệ số tài sản/VCSH = 52.600/35.800 = 1,469. Tích: 0,1860 × 2,281 × 1,469 = 62,35% (khớp). Năm N+1: ROS = 23,57%; hiệu suất = 95.000/54.000 = 1,759 vòng; hệ số = 54.000/39.000 = 1,385. Tích: 0,2357 × 1,759 × 1,385 = 57,42% (khớp).</li>
+          <li><b>Ảnh hưởng từng nhân tố</b> (phương pháp thay thế liên hoàn, thứ tự ROS → hiệu suất → đòn bẩy): ROS tăng làm ROE tăng khoảng +16,66 điểm %; hiệu suất giảm làm ROE giảm khoảng −18,07 điểm %; đòn bẩy giảm làm ROE giảm khoảng −3,48 điểm % (tổng ≈ −4,93 điểm %, chênh lệch nhỏ do làm tròn).</li>
+        </ol>
+        <div class="nx"><b>Kết luận:</b> ROE giảm không phải do sinh lời trên DT (ROS thực tế cải thiện mạnh) mà do DT sụt giảm (−20,83%) trong khi tài sản tăng, kéo hiệu suất sử dụng tài sản xuống, cộng với giảm đòn bẩy — giải pháp trọng tâm là khôi phục DT/hiệu suất tài sản, không phải tăng biên lợi nhuận.</div>
+        <div class="nx"><b>Cảnh báo dữ kiện (đề thật 2024 chẵn Câu 1 — Thạnh Phát):</b> với số liệu đề cho, chỉ tính được tới EBIT và BEP mà không tính được ROE cuối cùng nếu không có thuế suất: EBIT = LN trước thuế + lãi vay = 690 (2023) / 566,25 (2022); tài sản bình quân = 4.750 / 4.000; VCSH bình quân = 2.000 / 1.750; BEP = EBIT/TS bình quân = 14,53% / 14,16%; hiệu suất sử dụng vốn = DT/TS bình quân = 1,500 vòng cả 2 năm; hệ số sinh lời hoạt động = EBIT/DT = 9,68% / 9,44%; hệ số tài sản/VCSH = 2,375 / 2,286. Do đề không cho thuế suất trong phần trích dẫn, <b>không được tự áp thuế 20% để chốt ROE</b> — khi làm bài này cần kiểm tra lại bản đề đầy đủ xem có cho thuế suất ở phần khác hay không.</div>
+      </details>
+    </div>
+
+    <div class="ex">
+      <h3>Chuyên đề 8 — Rủi ro tài chính và dự báo nhu cầu tài chính</h3>
+      <div class="src">Bài A từ đề thật: 2022 chẵn Câu 3 — Cty thép P (triệu đồng) · Bài B: ví dụ minh hoạ tự lập (không phải đề thi thật) · Lời giải tự tính — không phải đáp án/barem chính thức</div>
+      <p class="de"><b>Bài A — Đề:</b> Tổng tài sản 16.725.096 (N-2) / 19.834.173 (N-1) / 21.011.095 (N); nợ phải trả 11.082.191 / 14.651.982 / 18.608.025; VCSH 5.642.905 / 5.182.191 / 2.403.070; LN sau thuế −1.245.312 (N-1) / −988.751 (N).</p>
+      <details class="solwrap"><summary>Xem lời giải tự tính Bài A từng bước</summary>
+        <ol>
+          <li><b>Cơ cấu nguồn vốn:</b> hệ số nợ = Nợ phải trả/Tổng tài sản = 11.082.191/16.725.096 = 66,26% (N-2) → 14.651.982/19.834.173 = 73,87% (N-1) → 18.608.025/21.011.095 = 88,56% (N) — tăng liên tục, vượt ngưỡng an toàn thông thường.</li>
+          <li><b>VCSH sụt giảm:</b> 5.642.905 → 5.182.191 → 2.403.070, giảm 57,41% trong 2 năm, chủ yếu do lỗ luỹ kế (LN sau thuế −1.245.312 rồi −988.751).</li>
+          <li><b>Sinh lời:</b> lỗ cả 2 năm gần nhất, dù lỗ năm N đã thu hẹp so với N-1 (−988.751 so với −1.245.312, giảm lỗ 20,60%) — vẫn chưa có lãi để bù đắp, lãi vay và nghĩa vụ nợ tăng trong khi vốn chủ giảm.</li>
+        </ol>
+        <div class="nx"><b>Kết luận rủi ro:</b> đồng thời xuất hiện 3 nhóm dấu hiệu — rủi ro tài trợ (nợ tăng, VCSH teo), rủi ro sinh lời (lỗ kéo dài), và rủi ro thanh toán tiềm ẩn (nợ ngắn hạn chiếm 15.466.251/18.608.025 = 83,12% tổng nợ năm N) — đây là dạng “rủi ro toàn diện”, không phải rủi ro đơn lẻ. <b>Bài tương tự:</b> 2022 lẻ Câu 3 (thép HM: VCSH 14.352.742 → 10.673.310; LN trước thuế −987.544 → −1.892.453, lỗ tăng gần gấp đôi).</div>
+      </details>
+      <p class="de" style="margin-top:12px"><b>Bài B — Dự báo nhu cầu tài chính:</b> <b>KHÔNG tìm thấy case chuyên biệt nào của môn Phân tích trong các đề đã thu thập</b> (dự báo nhu cầu vốn là nội dung của môn Tài chính — ví dụ Tuonthi giải đề Tài chính 2023 Câu 3 — không dùng cho môn này). Dưới đây là <b>ví dụ minh hoạ tự lập</b> theo phương pháp tỷ lệ % doanh thu, <b>KHÔNG phải đề thi thật</b>, chỉ để luyện công thức.</p>
+      <details class="solwrap"><summary>Xem ví dụ minh hoạ tự lập (không phải đề thi thật)</summary>
+        <ul>
+          <li>Giả thiết: DT hiện tại 1.000; DT kế hoạch tăng 20% → 1.200 (tăng thêm 200). Tài sản biến đổi theo DT = 60% DT → nhu cầu tài sản tăng thêm = 60% × 200 = 120. Nợ tự phát (phải trả người bán, phải nộp…) = 20% DT → tăng thêm = 20% × 200 = 40. LNST kế hoạch = 10% × 1.200 = 120; tỷ lệ giữ lại 50% → nguồn nội bộ = 60.</li>
+          <li>Nhu cầu tài chính bên ngoài (EFN) = 120 − 40 − 60 = <b>20</b>. Nếu EFN &gt; 0 phải huy động thêm (vay/phát hành); nếu EFN &lt; 0 là thừa vốn.</li>
+          <li>Công thức tổng quát: EFN = (A/S) × ΔS − (L/S) × ΔS − PM × S1 × b, với A/S là tài sản biến đổi/DT, L/S là nợ tự phát/DT, PM là biên LNST, S1 là DT kế hoạch, b là tỷ lệ giữ lại lợi nhuận.</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <h2>Quiz luyện tập nhanh</h2>
+    <p class="sec-sub">8 câu kiểm tra những điểm hay bị nhầm nhất của môn này. Chọn đáp án để xem giải thích ngay.</p>
+    <div id="quizBox"></div>
+    <p class="quiz-score" id="quizScore"></p>
+    <button class="btn" id="quizReset">Làm lại quiz</button>
+  </section>
+
+  <section id="loi">
+    <h2>Lỗi thường gặp khiến mất điểm</h2>
+    <p class="sec-sub">Tổng hợp từ TACA và kinh nghiệm thí sinh — không phải barem chấm chính thức.</p>
+    <table class="mtable">
+      <thead><tr><th style="width:30%">Lỗi</th><th style="width:32%">Vì sao mất điểm</th><th>Cách tránh</th></tr></thead>
+      <tbody>
+        <tr><td>Chủ quan với lý thuyết vì “phần lý thuyết rất ngắn”</td><td>Lý thuyết chiếm 4 điểm ở cấu trúc cũ, nay lồng trong từng câu bài tập — bỏ là mất điểm dễ nhất</td><td>Học ý nghĩa từng công thức, không chỉ thuộc công thức</td></tr>
+        <tr><td>Dùng định nghĩa chỉ tiêu của trường khác</td><td>Cùng tên chỉ tiêu nhưng tử/mẫu khác nhau — điển hình: KNTT nhanh theo BTC là Tiền/Nợ ngắn hạn</td><td>Lấy sách BTC làm chuẩn duy nhất</td></tr>
+        <tr><td>Nhầm chỉ tiêu thời điểm với thời kỳ</td><td>Dùng số cuối kỳ thay số bình quân cho ROA/ROE, hoặc ngược lại</td><td>Ghi chú “thời điểm / bình quân” ngay cạnh mỗi công thức trong sổ tay</td></tr>
+        <tr><td>Nhầm số ngày trong kỳ</td><td>Đề 2024 quy định 365 ngày, đề khác có thể 360 ngày</td><td>Đọc kỹ yêu cầu đề trước khi tính vòng quay và số ngày</td></tr>
+        <tr><td>Chỉ tính số, không phân tích, không kết luận</td><td>Đáp án chấm theo từng ý phân tích và kết luận</td><td>Làm đủ 3 bước: tính → phân tích → kết luận</td></tr>
+        <tr><td>Kết luận một chiều từ một chỉ số</td><td>KNTT nhanh thấp chưa chắc mất khả năng thanh toán nếu KNTT ngắn hạn/tổng quát vẫn tốt</td><td>Đọc chéo nhóm chỉ tiêu: thanh toán + công nợ + dòng tiền rồi mới kết luận</td></tr>
+        <tr><td>Viết gộp ý, dẫn luận dài</td><td>Đáp án cho điểm theo từng ý; dẫn luận thừa tốn thời gian</td><td>Gạch đầu dòng theo từng ý, bỏ trích dẫn không cần thiết</td></tr>
+        <tr><td>Sa đà câu khó, bỏ trống câu</td><td>Mỗi câu 2 điểm — bỏ 1 câu là mất tới 20% tổng điểm</td><td>Dễ trước khó sau, không bỏ câu nào, kỷ luật ~30 phút/câu</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="phongthi">
+    <h2>Phòng thi: thời gian &amp; checklist</h2>
+    <p class="sec-sub">Kỷ luật của thí sinh đạt điểm cao là ~30 phút/câu; trần toán học là 36 phút/câu (180 ÷ 5). Dùng bộ đếm dưới đây khi luyện đề để quen nhịp.</p>
+    <div class="grid c2">
+      <div class="card timer-card">
+        <h3>Đồng hồ luyện thi</h3>
+        <div class="clock" id="clock">35:00</div>
+        <div class="t-sub" id="clockSub">Chế độ: 1 câu — 35 phút (gồm dự phòng rà soát)</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+          <button class="btn small" data-mode="35">1 câu · 35′</button>
+          <button class="btn small" data-mode="30">1 câu · 30′</button>
+          <button class="btn small" data-mode="180">Cả đề · 180′</button>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+          <button class="btn primary" id="tStart">Bắt đầu</button>
+          <button class="btn" id="tPause">Tạm dừng</button>
+          <button class="btn" id="tReset">Đặt lại</button>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:10px">Checklist trước &amp; trong phòng thi</h3>
+        <ul class="check" id="checkList">
+          <li>Đọc lướt toàn bộ đề 1 lần, khoanh dạng bài của từng câu</li>
+          <li>Xếp thứ tự làm bài: câu dễ trước, câu khó sau</li>
+          <li>Mỗi câu: viết hết công thức liên quan ra giấy trước khi tính</li>
+          <li>Draft khung gạch đầu dòng đủ ý trước khi viết lời văn</li>
+          <li>Kiểm tra số ngày trong kỳ (360 hay 365) và quy định làm tròn của đề</li>
+          <li>Phân tích theo thứ tự: trị số → biến động → nguyên nhân → đánh giá → kết luận</li>
+          <li>Câu hỏi “có tối ưu hay không”: trả lời cả 2 vế (lý thuyết + chỉ tiêu + ví dụ)</li>
+          <li>Câu đòn bẩy/ROE: so tỷ suất sinh lời kinh tế của tài sản với chi phí vốn vay trước khi kết luận</li>
+          <li>5 phút cuối: rà soát đủ 5 câu, đủ kết luận, đơn vị tính, dấu +/−</li>
+        </ul>
+        <p class="note" style="margin-top:8px">Bấm vào từng mục để đánh dấu khi luyện tập (chỉ lưu trong lần mở trang này).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="moi2026">
+    <h2>Có gì mới cho kỳ 2026?</h2>
+    <div class="grid c2">
+      <div class="card">
+        <h3>Đã xác nhận</h3>
+        <ul>
+          <li>Tài liệu ôn thi 2026 mới được BTC thông báo ngày 10/7/2026: cập nhật quy định mới, lược bỏ quy định hết hiệu lực.</li>
+          <li>Mục lục môn Phân tích giữ nguyên 8 chuyên đề Phần II như khung 2023 — không có bằng chứng “đổi mới toàn diện”.</li>
+          <li>VACPA tổ chức lớp ôn thi 2026 tại TP.HCM từ 23/5/2026 đến 13/9/2026.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Xu hướng quan sát từ đề thật (không phải thông báo chính thức)</h3>
+        <ul>
+          <li>Cấu trúc đề chuyển từ “2 lý thuyết + 3 bài tập” sang 5 bài tập tình huống (2023–2024).</li>
+          <li>Đầu vào BCTC phải theo chế độ kế toán hiện hành (môn Kế toán đã cập nhật Thông tư 99/2025/TT-BTC) vì số liệu phân tích lấy từ BCTC.</li>
+          <li>Không có bằng chứng về đổi hình thức thi 2026 (trắc nghiệm/thi máy) trong nguồn mở đã tra cứu.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="aimau">
+    <h2>Mã mẫu đầu mối AI — api/ai.js</h2>
+    <p class="sec-sub">Khung chat ở góc trang là gia sư AI thật: mọi tin nhắn được gửi qua đầu mối chung <span class="mono">POST /api/ai</span>, và khi mở trang, app tự ping đầu mối để hiện trạng thái đã nối / chưa nối ngay tại khung chat. Người học không cần nhập token — khóa API nằm phía server. Khi deploy lên Vercel, đặt mã dưới đây tại <span class="mono">api/ai.js</span> trong repo và thêm khóa vào Project Settings → Environment Variables (Production): <span class="mono">ANTHROPIC_API_KEY</span>, <span class="mono">OPENAI_API_KEY</span> hoặc <span class="mono">GEMINI_API_KEY</span> (biến <span class="mono">AI_KEY</span> cũng được nhận làm khóa Gemini dự phòng; <span class="mono">AI_MODEL</span> tùy chọn, mặc định Gemini dùng <span class="mono">gemini-3-pro-preview</span>). Hàm tự chọn nhà cung cấp theo thứ tự Anthropic → OpenAI → Gemini và mang sẵn system prompt gia sư CPA phía server.</p>
+    <div class="codewrap">
+      <pre class="code" id="aiSamplePre">// api/ai.js — Đầu mối AI chung cho Cpathaihoa (Vercel Serverless Function)
+// Chỉ nhận POST. Hai loại yêu cầu:
+//   { "ping": true }  → kiểm tra trạng thái: { ok, connected, provider }
+//   { "text": "...", "system": "...", "context": "...", "messages": [...] }
+//                     → trả { ok, provider, text }
+// Khóa đọc từ Environment Variables phía server:
+//   ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY
+//   AI_KEY được chấp nhận làm khóa Gemini dự phòng.
+//   AI_MODEL (tùy chọn) ghi đè model; mặc định Gemini: gemini-3-pro-preview.
+
+const DEFAULT_SYSTEM = [
+  "Bạn là gia sư ôn thi CPA Việt Nam 2026, môn Phân tích hoạt động tài chính nâng cao.",
+  "Trả lời dựa trên nội dung trang học Cpathaihoa (khung chương trình, công thức theo tài liệu Bộ Tài chính, dạng bài, mẹo thi) được gửi kèm trong ngữ cảnh.",
+  "Giải thích từng bước: nêu công thức, thay số, tính, rồi nhận xét/kết luận.",
+  "Không bịa số liệu, đáp án hay lịch thi chưa xác minh: lịch thi CPA 2026 chưa có ngày cụ thể đã xác minh — nếu được hỏi, nói rõ điều đó và khuyên kiểm tra mof.gov.vn / vacpa.org.vn.",
+  "Nếu câu hỏi vượt ngoài nội dung trang, nói rõ giới hạn của mình thay vì bịa thêm."
+].join("\n");
+
+function pickProvider() {
+  if (process.env.ANTHROPIC_API_KEY) return { name: "anthropic", key: process.env.ANTHROPIC_API_KEY };
+  if (process.env.OPENAI_API_KEY) return { name: "openai", key: process.env.OPENAI_API_KEY };
+  const g = process.env.GEMINI_API_KEY || process.env.AI_KEY;
+  if (g) return { name: "gemini", key: g };
+  return null;
+}
+
+async function callAnthropic(key, model, system, messages) {
+  const r = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": key,
+      "anthropic-version": "2023-06-01"
+    },
+    body: JSON.stringify({
+      model: model || "claude-sonnet-4-5",
+      max_tokens: 1500,
+      system: system,
+      messages: messages
+    })
+  });
+  const data = await r.json();
+  if (!r.ok) throw new Error((data &amp;&amp; data.error &amp;&amp; data.error.message) || "Anthropic error");
+  return (data.content || []).filter(function (b) { return b.type === "text"; })
+    .map(function (b) { return b.text; }).join("\n");
+}
+
+async function callOpenAI(key, model, system, messages) {
+  const r = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: "Bearer " + key },
+    body: JSON.stringify({
+      model: model || "gpt-4o-mini",
+      messages: [{ role: "system", content: system }].concat(messages),
+      max_tokens: 1500
+    })
+  });
+  const data = await r.json();
+  if (!r.ok) throw new Error((data &amp;&amp; data.error &amp;&amp; data.error.message) || "OpenAI error");
+  return data.choices &amp;&amp; data.choices[0] &amp;&amp; data.choices[0].message
+    ? data.choices[0].message.content : "";
+}
+
+async function callGemini(key, model, system, messages) {
+  const url = "https://generativelanguage.googleapis.com/v1beta/models/" +
+    (model || "gemini-3-pro-preview") + ":generateContent?key=" + encodeURIComponent(key);
+  const contents = messages.map(function (m) {
+    return { role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] };
+  });
+  const r = await fetch(url, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: system }] },
+      contents: contents,
+      generationConfig: { maxOutputTokens: 1500 }
+    })
+  });
+  const data = await r.json();
+  if (!r.ok) throw new Error((data &amp;&amp; data.error &amp;&amp; data.error.message) || "Gemini error");
+  const parts = data.candidates &amp;&amp; data.candidates[0] &amp;&amp; data.candidates[0].content
+    ? (data.candidates[0].content.parts || []) : [];
+  return parts.map(function (p) { return p.text || ""; }).join("\n");
+}
+
+module.exports = async function handler(req, res) {
+  if (req.method !== "POST") {
+    res.status(405).json({ ok: false, error: "Method not allowed — chỉ nhận POST." });
+    return;
+  }
+  let body = req.body || {};
+  if (typeof body === "string") {
+    try { body = JSON.parse(body); } catch (e) { body = {}; }
+  }
+
+  const provider = pickProvider();
+
+  if (body.ping) {
+    res.status(200).json({ ok: true, connected: !!provider, provider: provider ? provider.name : null });
+    return;
+  }
+  if (!provider) {
+    res.status(503).json({ ok: false, error: "AI chưa được nối: server chưa có API key (ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY / AI_KEY)." });
+    return;
+  }
+
+  let messages = Array.isArray(body.messages)
+    ? body.messages.filter(function (m) { return m &amp;&amp; m.content; }) : [];
+  if (!messages.length &amp;&amp; body.text) messages = [{ role: "user", content: String(body.text) }];
+  if (!messages.length) {
+    res.status(400).json({ ok: false, error: "Thiếu nội dung: gửi 'text' hoặc 'messages'." });
+    return;
+  }
+  messages = messages.slice(-12).map(function (m) {
+    return { role: m.role === "assistant" ? "assistant" : "user", content: String(m.content) };
+  });
+
+  const system = (body.system ? String(body.system) : DEFAULT_SYSTEM) +
+    (body.context ? "\n\nNGỮ CẢNH — NỘI DUNG TRANG HỌC:\n" + String(body.context) : "");
+  const model = process.env.AI_MODEL || null;
+
+  try {
+    let text = "";
+    if (provider.name === "anthropic") text = await callAnthropic(provider.key, model, system, messages);
+    else if (provider.name === "openai") text = await callOpenAI(provider.key, model, system, messages);
+    else text = await callGemini(provider.key, model, system, messages);
+    res.status(200).json({ ok: true, provider: provider.name, text: text });
+  } catch (err) {
+    res.status(502).json({ ok: false, error: "Lỗi gọi nhà cung cấp AI: " + (err &amp;&amp; err.message ? err.message : "unknown") });
+  }
+};</pre>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button class="btn" id="copyAiSample" type="button">Copy mã api/ai.js</button>
+      <span class="note" id="copyAiNote"></span>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>Nguồn nội dung</b> (tổng hợp ngày 04/11/2026 — thông tin chính thức phân biệt rõ với kinh nghiệm diễn đàn trong từng mục):</p>
+    <ul>
+      <li>TACA — Tài liệu ôn thi CPA 2026 của Bộ Tài chính &amp; đề thi các năm: <a href="https://taca.edu.vn/tai-lieu-on-thi-cpa-2026-bo-tai-chinh/" target="_blank" rel="noopener">taca.edu.vn</a></li>
+      <li>Gonnapass — Kinh nghiệm thi &amp; đề/đáp án tham khảo 2023–2024: <a href="https://gonnapass.com/chia-se-kinh-nghiem-thi-mon-phan-tich-hoat-dong-tai-chinh-nang-cao-cua-chung-chi-hanh-nghe-ke-toan-kiem-toan-viet-nam/" target="_blank" rel="noopener">gonnapass.com</a></li>
+      <li>Tuonthi — Đáp án tham khảo 2017: <a href="https://tuonthi.com/?p=1958" target="_blank" rel="noopener">tuonthi.com</a></li>
+      <li>Bộ Tài chính: <a href="https://mof.gov.vn" target="_blank" rel="noopener">mof.gov.vn</a> · VACPA: <a href="https://vacpa.org.vn" target="_blank" rel="noopener">vacpa.org.vn</a></li>
+    </ul>
+    <p>Đề thi các năm trên trang là bản sưu tầm, đáp án là đáp án tham khảo — không phải đáp án chính thức của Hội đồng thi. Cpathaihoa là trang học tập độc lập, không thuộc Bộ Tài chính hay VACPA.</p>
+  </footer>
+</div>
+
+<!-- AI chat -->
+<button class="chat-fab" id="chatFab" aria-label="Mở trợ lý học tập">💬 Hỏi trợ lý học tập</button>
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Trợ lý học tập">
+  <div class="chat-head">
+    <div><b>Gia sư AI — CPA Phân tích</b><span>AI thật qua đầu mối chung /api/ai, bám nội dung trang học này</span><span class="chat-status" id="chatStatus"><i class="dot"></i><em id="chatStatusText" style="font-style:normal">Đang kiểm tra kết nối AI…</em></span></div>
+    <button id="chatClose" aria-label="Đóng">×</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chips" id="chatChips"></div>
+  <form class="chat-form" id="chatForm">
+    <input id="chatInput" type="text" placeholder="Hỏi về công thức, dạng bài, lịch thi…" autocomplete="off" />
+    <button type="submit">Gửi</button>
+  </form>
+</div>
+
+<script>
+(function(){
+"use strict";
+function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d");}
+
+/* ---------- Weights ---------- */
+var weights=[
+ ["I. Tổng quan",5],["II.1. Phân tích khái quát",9],["II.2. Huy động và sử dụng vốn",7],
+ ["II.3. Tài trợ và bảo đảm vốn",7],["II.4. Công nợ và khả năng thanh toán",20],
+ ["II.5. Tạo tiền và lưu chuyển tiền tệ",7],["II.6. Tình hình và kết quả kinh doanh",10],
+ ["II.7. Hiệu suất và hiệu quả sử dụng vốn",20],["II.8. Rủi ro và dự báo nhu cầu tài chính",5],
+ ["Bổ trợ: hòa vốn & ra quyết định (đã lược bỏ từ 2020)",10]
+];
+document.getElementById("weights").innerHTML=weights.map(function(w){
+  return '<div class="wrow'+(w[1]>=20?" hot":"")+'"><span>'+w[0]+'</span><span class="pct">'+w[1]+'%</span><div class="bar"><i style="width:'+(w[1]*4)+'%"></i></div></div>';
+}).join("");
+
+/* ---------- Topics ---------- */
+var topics=[
+ {n:1,t:"Phân tích khái quát tình hình tài chính",tag:"14 chỉ tiêu",body:
+  "<p>Đánh giá tổng thể quy mô, tự tài trợ, đầu tư, thanh toán, hiệu suất và sinh lời — thường là câu mở đầu đề thi. <b>Quy tắc vàng:</b> phân biệt chỉ tiêu <i>thời điểm</i> (lấy số cuối kỳ: tổng nguồn vốn, tự tài trợ, KNTT tổng quát/ngắn hạn/nhanh) với chỉ tiêu <i>thời kỳ</i> (lấy bình quân hoặc dòng trong kỳ: khả năng chi trả, ROA, ROE). Nhầm chỗ này là lỗi mất điểm kinh điển.</p>"+
+  '<div class="fbox">Tổng DT & thu nhập = DT thuần (MS10) + DT tài chính (MS21) + Thu nhập khác (MS31)</div>'+
+  '<div class="fbox">LCtt = LCttKD + LCttĐT + LCttTC (âm liên tục = dấu hiệu suy thoái năng lực tài chính)</div>'+
+  '<div class="fbox">Hệ số tự tài trợ = VCSH / Tổng nguồn vốn · Tự tài trợ TSDH = VCSH / TSDH · Đầu tư DH = TSDH / Tổng TS</div>'},
+ {n:2,t:"Huy động và sử dụng vốn",tag:"Câu lý thuyết hay gặp",body:
+  "<p>Phân tích quy mô, cơ cấu và tốc độ biến động của từng nguồn vốn (nợ ngắn hạn, nợ dài hạn, VCSH) và từng loại tài sản (TSNH, TSDH, TSCĐ, HTK, phải thu…): số tuyệt đối, tỷ trọng, chênh lệch +/− và %.</p>"+
+  "<p>Câu lý thuyết kinh điển (đề 2018, cả chẵn và lẻ): <i>“Trình bày nội dung phân tích tình hình huy động vốn / sử dụng vốn qua các chỉ tiêu trên Bảng cân đối kế toán. Có cơ cấu vốn tối ưu hay không? Lý giải, cho ví dụ.”</i> Cách trả lời: không có cơ cấu tối ưu tuyệt đối — chỉ có cơ cấu phù hợp với ngành, giai đoạn phát triển và mức rủi ro chấp nhận được.</p>"},
+ {n:3,t:"Tài trợ và bảo đảm vốn",tag:"Gần như năm nào cũng có",body:
+  "<p>Hai góc phân tích, đừng lẫn nhau:</p><ul><li><b>Theo tính ổn định của nguồn tài trợ:</b> so nguồn vốn dài hạn với tài sản dài hạn.</li><li><b>Theo quan điểm luân chuyển vốn:</b> tài sản trong thanh toán so với nguồn vốn trong thanh toán (đề lẻ 2024).</li></ul>"+
+  '<div class="fbox">Nguồn vốn dài hạn = VCSH + Nợ dài hạn</div>'+
+  '<div class="fbox">Vốn luân chuyển (VLC) = Nguồn vốn dài hạn − Tài sản dài hạn</div>'+
+  "<p>VLC &gt; 0 và tăng: đáp ứng nguyên tắc cân bằng tài chính, tài trợ ổn định. VLC &lt; 0: đang dùng vốn ngắn hạn tài trợ TSDH — rủi ro thanh toán. Mặt trái cần nêu khi nhận xét: VLC quá lớn có thể đồng nghĩa bỏ lỡ cơ hội đầu tư sinh lời cao hơn.</p>"},
+ {n:4,t:"Công nợ và khả năng thanh toán",tag:"Trọng tâm ~20%",body:
+  "<p>Ba lớp nội dung: (1) quy mô &amp; cơ cấu công nợ theo đối tượng, thời hạn, tính chất — chú ý phải thu tăng nhanh hơn doanh thu là dấu hiệu bị chiếm dụng vốn; (2) trình độ quản lý nợ qua vòng quay; (3) khả năng thanh toán.</p>"+
+  '<div class="fbox">Vòng quay phải thu = Doanh thu thuần / Phải thu bình quân · Thời gian thu tiền = Số ngày trong kỳ / Vòng quay</div>'+
+  '<div class="fbox">Vòng quay HTK = Giá vốn hàng bán / HTK bình quân · Kỳ luân chuyển HTK = Số ngày / Vòng quay HTK</div>'+
+  '<div class="fbox">KNTT tổng quát = Tổng TS / Tổng nợ · KNTT ngắn hạn = TSNH / Nợ NH · KNTT nhanh (BTC) = Tiền / Nợ NH</div>'+
+  "<p>⚠️ KNTT nhanh theo sách BTC khác “quick ratio” quốc tế (TSNH − HTK)/Nợ NH — thi theo định nghĩa BTC. Đề còn lồng lý thuyết: “trình bày công thức và ý nghĩa của 2 chỉ tiêu phân tích khả năng thanh toán” (đề 2023).</p>"},
+ {n:5,t:"Khả năng tạo tiền và lưu chuyển tiền tệ",tag:"Bám BCLCTT mẫu B-03",body:
+  '<div class="fbox">Tiền tồn đầu kỳ + Tiền thu trong kỳ = Tiền chi trong kỳ + Tiền tồn cuối kỳ</div>'+
+  "<p>Ba nhóm chỉ tiêu: <b>quy mô</b> tạo tiền từng hoạt động; <b>cơ cấu</b> — tỷ trọng dòng tiền thu từng hoạt động = Tiền thu của hoạt động / Tổng tiền thu × 100%; <b>trình độ</b> tạo tiền:</p>"+
+  '<div class="fbox">Hệ số tạo tiền = Tổng tiền thu trong kỳ / Tổng tiền chi trong kỳ</div>'+
+  "<p>Cách đọc: tỷ trọng tiền thu từ HĐKD cao = tiền chủ yếu từ bán hàng, tăng trưởng bền vững. LCttĐT dương lớn = thu hồi/thanh lý nhiều hơn đầu tư mới, có thể đang thu hẹp. LCttTC dương tăng = huy động nhiều hơn trả, tăng lệ thuộc tài chính.</p>"},
+ {n:6,t:"Tình hình và kết quả kinh doanh",tag:"Trọng tâm: lợi nhuận gộp",body:
+  "<p>Phân tích doanh thu, giá vốn, chi phí bán hàng, chi phí QLDN, lợi nhuận gộp/thuần/khác theo quy mô, tốc độ tăng và tỷ trọng trên doanh thu (hệ số GVHB, hệ số chi phí BH, hệ số chi phí QLDN).</p>"+
+  "<p><b>Phân tích lợi nhuận gộp theo nhân tố</b> — dạng bài trọng tâm, cần đặc biệt lưu ý: tách ảnh hưởng của (1) sản lượng tiêu thụ, (2) kết cấu mặt hàng, (3) lợi nhuận gộp đơn vị — trong đó tách tiếp ảnh hưởng giá bán và giá vốn đơn vị. Đáp án 2017 minh họa: LN gộp tăng 3.750, trong đó sản lượng +11.025, kết cấu −25, LN gộp đơn vị −7.250 (giá bán +4.250, giá vốn −11.500).</p>"+
+  "<p>So sánh tốc độ tăng doanh thu với tốc độ tăng từng loại chi phí: lợi nhuận tăng nhanh hơn doanh thu → ROS cải thiện nhờ quản trị chi phí (dạng bài đề 2024 cả chẵn và lẻ).</p>"},
+ {n:7,t:"Hiệu suất sử dụng vốn và khả năng sinh lời",tag:"Trọng tâm ~20%",body:
+  '<div class="fbox">ROS = LNST / Doanh thu thuần · ROA = LNST / Tổng TS bình quân · ROE = LNST / VCSH bình quân</div>'+
+  '<div class="fbox">DuPont: ROE = ROS × Vòng quay tổng tài sản × (Tổng TS / VCSH)</div>'+
+  '<div class="fbox">Tác động đòn bẩy: ROE = [ROB + (D/E) × (ROB − r_d)] × (1 − t)</div>'+
+  "<p>ROB là tỷ suất sinh lời kinh tế của tài sản (EBIT/Tổng TS), r_d là chi phí vốn vay, t là thuế suất TNDN. Nếu ROB &gt; r_d: vay nợ khuếch đại ROE (đòn bẩy tích cực); ngược lại ROE giảm nhanh hơn. Đề 2024 câu 1 yêu cầu đúng dạng DuPont + nhận định nhân tố nào ảnh hưởng tích cực nhất tới biến động ROE.</p>"},
+ {n:8,t:"Rủi ro tài chính và dự báo nhu cầu tài chính",tag:"Câu kết luận của đề",body:
+  "<p><b>Nhận diện rủi ro</b> (đề 2024 câu 4, cả chẵn và lẻ): hệ số nợ và nợ/VCSH tăng, hệ số thanh toán &lt; 1, khả năng trả lãi = EBIT / Lãi vay yếu, vòng quay chậm lại, HTK ứ đọng, phải thu tăng nhanh, LCttKD âm, nợ quá hạn tăng. Yêu cầu không chỉ tính số mà phải kết luận rủi ro nằm ở khâu nào: huy động vốn, thanh toán hay hiệu suất sử dụng vốn.</p>"+
+  "<p><b>Dự báo nhu cầu tài chính</b> — 3 phương pháp: (1) tỷ lệ % trên doanh thu (4 bước: số dư bình quân → % trên doanh thu của khoản mục nhạy cảm → nhu cầu VLĐ dự kiến → nguồn trang trải: lợi nhuận để lại trước, huy động bên ngoài sau); (2) lập bảng cân đối kế toán mẫu; (3) dựa vào chu kỳ vận động của vốn.</p>"+
+  '<div class="fbox">Nhu cầu VLĐ tăng thêm = Doanh thu tăng thêm × (%TSNH − %vốn chiếm dụng) · Vốn thừa(+)/thiếu(−) = Tổng nguồn vốn dự báo − Tổng tài sản dự báo</div>'}
+];
+document.getElementById("topics").innerHTML=topics.map(function(x,i){
+  return '<div class="topic'+(i===0?" open":"")+'"><button type="button" aria-expanded="'+(i===0)+'"><span class="num">'+x.n+'</span><span>Chuyên đề '+x.n+' — '+x.t+'</span><span class="badge b-info">'+x.tag+'</span><span class="chev">▾</span></button><div class="body">'+x.body+'</div></div>';
+}).join("");
+Array.prototype.forEach.call(document.querySelectorAll(".topic>button"),function(b){
+  b.addEventListener("click",function(){
+    var t=b.parentElement, open=t.classList.toggle("open");
+    b.setAttribute("aria-expanded",open);
+  });
+});
+
+/* ---------- Flashcards ---------- */
+var cards=[
+ {g:"Thanh khoản",q:"Hệ số khả năng thanh toán nhanh (theo sách BTC)",f:"KNTT nhanh = Tiền / Nợ phải trả ngắn hạn",d:"Khác quick ratio quốc tế (TSNH − HTK)/Nợ NH. Thi CPA Việt Nam dùng định nghĩa của tài liệu BTC."},
+ {g:"Thanh khoản",q:"Hệ số khả năng thanh toán tổng quát",f:"= Tổng tài sản / Tổng nợ phải trả",d:"≥ 1 mới bảo đảm thanh toán chung; càng gần 1 càng mất dần khả năng thanh toán. Chỉ tiêu thời điểm."},
+ {g:"Thanh khoản",q:"Hệ số khả năng chi trả nợ ngắn hạn",f:"= Dòng tiền thuần từ HĐKD (MS20) / Nợ ngắn hạn bình quân",d:"Chỉ tiêu thời kỳ — khắc phục tính thời điểm/thời vụ của các hệ số thanh toán tĩnh."},
+ {g:"Cấu trúc vốn",q:"Hệ số tự tài trợ",f:"= VCSH / Tổng nguồn vốn",d:"Càng cao càng độc lập tài chính. > 0,5 thường nhận xét là phụ thuộc bên ngoài thấp."},
+ {g:"Bảo đảm vốn",q:"Vốn luân chuyển (VLC)",f:"VLC = (VCSH + Nợ dài hạn) − Tài sản dài hạn",d:"VLC > 0: tài trợ ổn định, cân bằng tài chính. VLC < 0: dùng vốn ngắn hạn tài trợ TSDH, rủi ro thanh toán."},
+ {g:"Công nợ",q:"Vòng quay khoản phải thu & thời gian thu tiền",f:"VQ = Doanh thu thuần / Phải thu bình quân · Số ngày = Số ngày trong kỳ / VQ",d:"Đọc kỹ đề: 2024 dùng 365 ngày, đề khác có thể 360 ngày."},
+ {g:"Công nợ",q:"Vòng quay hàng tồn kho",f:"= Giá vốn hàng bán / HTK bình quân",d:"Vòng quay giảm, kỳ luân chuyển dài ra = HTK ứ đọng, vốn bị chiếm dụng."},
+ {g:"Sinh lời",q:"ROS — ROA — ROE",f:"ROS = LNST/DT thuần · ROA = LNST/TS bình quân · ROE = LNST/VCSH bình quân",d:"Mẫu số phải là bình quân vì tử số là kết quả của cả kỳ."},
+ {g:"Sinh lời",q:"Đẳng thức DuPont",f:"ROE = ROS × Vòng quay tổng TS × (Tổng TS / VCSH)",d:"Tách ROE thành: sinh lời trên doanh thu × hiệu suất dùng tài sản × đòn bẩy tài chính."},
+ {g:"Đòn bẩy",q:"Khi nào vay nợ làm tăng ROE?",f:"Khi ROB = EBIT/Tổng TS > chi phí vốn vay r_d",d:"ROE = [ROB + (D/E)(ROB − r_d)] × (1 − t). ROB < r_d thì đòn bẩy phản tác dụng, ROE giảm nhanh."},
+ {g:"Dòng tiền",q:"Hệ số tạo tiền",f:"= Tổng tiền thu trong kỳ / Tổng tiền chi trong kỳ",d:"Cùng phương trình cân đối: Tiền đầu kỳ + Thu = Chi + Tiền cuối kỳ. LCtt = LCttKD + LCttĐT + LCttTC."},
+ {g:"Hiệu suất",q:"Hiệu suất sử dụng vốn kinh doanh",f:"= (Doanh thu + thu nhập) / Vốn kinh doanh bình quân",d:"1 đồng vốn kinh doanh tạo ra bao nhiêu đồng doanh thu và thu nhập trong kỳ."},
+ {g:"Dự báo",q:"Nhu cầu vốn lưu động tăng thêm",f:"= Doanh thu tăng thêm × (%TSNH − %vốn chiếm dụng)",d:"Phương pháp tỷ lệ % trên doanh thu: nguồn trang trải ưu tiên lợi nhuận để lại, sau đó mới huy động bên ngoài."},
+ {g:"Bổ trợ",q:"Sản lượng & doanh thu hòa vốn",f:"Qhv = F / (g − v) · DThv = F / Tỷ lệ lãi trên biến phí",d:"Nội dung bổ trợ liên thông môn Tài chính — đã lược bỏ khỏi môn Phân tích từ kỳ 2020."}
+];
+var fcIdx=0, fcOrder=cards.map(function(_,i){return i;});
+var fcEl=document.getElementById("fcCard");
+function fcShow(){
+  var c=cards[fcOrder[fcIdx]];
+  document.getElementById("fcGroup").textContent=c.g;
+  document.getElementById("fcQ").textContent=c.q;
+  document.getElementById("fcF").textContent=c.f;
+  document.getElementById("fcD").textContent=c.d;
+  document.getElementById("fcCount").textContent="Thẻ "+(fcIdx+1)+" / "+cards.length;
+  fcEl.classList.remove("flip");
+}
+fcEl.addEventListener("click",function(){fcEl.classList.toggle("flip");});
+fcEl.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();fcEl.classList.toggle("flip");}});
+document.getElementById("fcNext").addEventListener("click",function(){fcIdx=(fcIdx+1)%cards.length;fcShow();});
+document.getElementById("fcPrev").addEventListener("click",function(){fcIdx=(fcIdx-1+cards.length)%cards.length;fcShow();});
+document.getElementById("fcShuffle").addEventListener("click",function(){
+  for(var i=fcOrder.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=fcOrder[i];fcOrder[i]=fcOrder[j];fcOrder[j]=t;}
+  fcIdx=0;fcShow();
+});
+fcShow();
+
+/* ---------- Exercises ---------- */
+var exs=[
+ {t:"Bài 1 — Tính chỉ số khái quát & nhận xét",tag:"Dạng 1 · Số minh họa tự tính",
+  de:"Cuối năm, doanh nghiệp có: Tài sản ngắn hạn 800, Nợ ngắn hạn 500, Tiền 100, Tổng tài sản 2.000, Nợ phải trả 800, VCSH 1.200 (triệu đồng). Tính KNTT ngắn hạn, KNTT nhanh, KNTT tổng quát, hệ số tự tài trợ và nhận xét.",
+  sol:"<ul><li>KNTT ngắn hạn = 800 / 500 = <b>1,60</b></li><li>KNTT nhanh (BTC) = 100 / 500 = <b>0,20</b></li><li>KNTT tổng quát = 2.000 / 800 = <b>2,50</b></li><li>Hệ số tự tài trợ = 1.200 / 2.000 = <b>0,60</b></li></ul>"+
+  '<div class="nx"><b>Nhận xét mẫu:</b> Khả năng thanh toán tổng thể tốt (tổng quát 2,50; ngắn hạn 1,60 &gt; 1), độc lập tài chính khá (tự tài trợ 0,60 &gt; 0,5). Nhưng khả năng chi trả tức thời bằng tiền yếu (0,20) — chưa kết luận rủi ro vội, cần xem tiếp vòng quay phải thu và HTK. Đây là lỗi kinh điển: kết luận chỉ từ 1 chỉ số.</div>'},
+ {t:"Bài 2 — DuPont: ROS, ROA, ROE",tag:"Dạng 7 · Số minh họa tự tính",
+  de:"Doanh thu thuần 1.000; LNST 80; Tổng tài sản bình quân 800; VCSH bình quân 400 (triệu đồng). Tính ROS, ROA, ROE và kiểm chứng bằng đẳng thức DuPont.",
+  sol:"<ul><li>ROS = 80 / 1.000 = <b>8%</b></li><li>ROA = 80 / 800 = <b>10%</b></li><li>Vòng quay tổng tài sản = 1.000 / 800 = <b>1,25 vòng</b></li><li>Hệ số tài sản/VCSH = 800 / 400 = <b>2,0 lần</b></li><li>ROE = 80 / 400 = <b>20%</b> — kiểm chứng DuPont: 8% × 1,25 × 2,0 = 20% ✓</li></ul>"+
+  '<div class="nx"><b>Nhận xét mẫu:</b> ROE gấp đôi ROA là nhờ đòn bẩy tài chính (tài sản gấp 2 lần VCSH), không chỉ nhờ sinh lời trên doanh thu. Đòn bẩy có tích cực hay không phải so tỷ suất sinh lời kinh tế của tài sản với chi phí vốn vay — ROE cao nhờ vay nhiều thì rủi ro cũng cao hơn.</div>'},
+ {t:"Bài 3 — Đảm bảo vốn theo tính ổn định nguồn tài trợ",tag:"Dạng 3 · Số liệu thật — đề chẵn 2024, Công ty S (bia)",
+  de:"31/12/2023: VCSH 24.050 tỷ, Nợ dài hạn 1.170 tỷ, Tài sản dài hạn 6.000 tỷ. 31/12/2022: VCSH 22.330 tỷ, Nợ dài hạn 1.380 tỷ, Tài sản dài hạn 6.200 tỷ. Tính nguồn vốn dài hạn và vốn luân chuyển cuối mỗi năm, phân tích đảm bảo vốn.",
+  sol:"<ul><li>NV dài hạn 2023 = 24.050 + 1.170 = <b>25.220 tỷ</b>; VLC 2023 = 25.220 − 6.000 = <b>19.220 tỷ</b></li><li>NV dài hạn 2022 = 22.330 + 1.380 = <b>23.710 tỷ</b>; VLC 2022 = 23.710 − 6.200 = <b>17.510 tỷ</b></li></ul>"+
+  '<div class="nx"><b>Nhận xét mẫu:</b> VLC dương lớn và tăng 1.710 tỷ (+9,8%): doanh nghiệp thừa nguồn vốn dài hạn tài trợ TSDH, phần dư tài trợ cho TSNH — đáp ứng nguyên tắc cân bằng tài chính, rủi ro mất cân đối kỳ hạn thấp. Mặt trái: VLC quá lớn có thể khiến doanh nghiệp bỏ lỡ cơ hội đầu tư sinh lời cao hơn (lập luận có trong đáp án tham khảo 2017).</div>'},
+ {t:"Bài 4 — Nhận định: vòng quay phải thu & quản trị chi phí",tag:"Dạng 4 + 6 · Số liệu đáp án tham khảo 2017",
+  de:"Vòng quay phải thu tăng từ 12,7 vòng (2015) lên 14,7 vòng (2016); thời gian thu tiền bình quân giảm từ 28,3 xuống 24,5 ngày (quy ước 360 ngày trong kỳ: 360/12,7 ≈ 28,3 và 360/14,7 ≈ 24,5); doanh thu thuần tăng 8,0%; ROS tăng từ 8,2% lên 10,5%; vòng quay HTK giảm từ 4,99 xuống 4,57 vòng. Hãy nhận định tình hình quản lý công nợ và chi phí.",
+  sol:"<p>Thu hồi nợ tốt lên: thời gian thu thực tế 24,5 ngày vẫn sớm hơn thời gian thu quy định. Nhưng vòng quay HTK giảm, kỳ luân chuyển tăng thêm 7 ngày — chính sách tín dụng thắt chặt có thể làm chậm tiêu thụ; thắt chặt quá mức dài hạn dễ mất khách hàng, giảm thị phần.</p>"+
+  '<div class="nx"><b>Về sinh lời:</b> lợi nhuận tăng 38,3% trong khi doanh thu chỉ tăng 8% nên ROS cải thiện — nhờ quản lý chi phí tốt lên (hệ số GVHB giảm từ 57% xuống 53%), dù hệ số chi phí bán hàng tăng từ 10% lên 14% cần theo dõi.</div>'},
+ {t:"Bài 5 — Tổng hợp: hòa vốn đa sản phẩm (bổ trợ)",tag:"Dạng bổ trợ · Số liệu đáp án tham khảo 2017",
+  de:"Báo cáo lãi trên biến phí: doanh thu 9.800.000 nghìn đồng, biến phí 4.200.000 (42,86%), lãi trên biến phí 5.600.000 (57,14%), định phí 4.600.000, lợi nhuận 1.000.000 (nghìn đồng). Tính doanh thu hòa vốn, thời gian hòa vốn và khoảng an toàn doanh thu.",
+  sol:"<ul><li>Doanh thu hòa vốn = 4.600.000 / 57,14% = <b>8.050.000 nghìn đồng</b></li><li>Thời gian hòa vốn = 8.050.000 × 360 / 9.800.000 = <b>295,71 ngày</b></li><li>Khoảng an toàn = (9.800.000 − 8.050.000) / 9.800.000 ≈ <b>17,9%</b></li></ul>"+
+  '<div class="nx"><b>Nhận xét mẫu:</b> Doanh nghiệp phải hoạt động gần 296/360 ngày mới hòa vốn, khoảng an toàn mỏng. Muốn tăng lợi nhuận: tăng sản lượng mặt hàng có lãi trên biến phí đơn vị cao hơn (trong đáp án gốc: sản phẩm A 600 &gt; B 500). Lưu ý: dạng bài giai đoạn trước 2020, nay là phần bổ trợ.</div>'}
+];
+document.getElementById("exercises").innerHTML=exs.map(function(x,i){
+  return '<div class="ex"><h3>'+x.t+'</h3><div class="src">'+x.tag+'</div><p class="de">'+x.de+'</p><button class="btn small" data-sol="'+i+'">Xem lời giải</button><div class="sol" id="sol'+i+'">'+x.sol+'</div></div>';
+}).join("");
+Array.prototype.forEach.call(document.querySelectorAll("[data-sol]"),function(b){
+  b.addEventListener("click",function(){
+    var s=document.getElementById("sol"+b.getAttribute("data-sol"));
+    var show=s.classList.toggle("show");
+    b.textContent=show?"Ẩn lời giải":"Xem lời giải";
+  });
+});
+
+/* ---------- Quiz ---------- */
+var quiz=[
+ {q:"Theo tài liệu BTC, hệ số khả năng thanh toán nhanh được tính bằng:",o:["(Tài sản ngắn hạn − Hàng tồn kho) / Nợ ngắn hạn","Tiền / Nợ phải trả ngắn hạn","Tài sản ngắn hạn / Nợ ngắn hạn","Tổng tài sản / Tổng nợ"],a:1,e:"Đây là điểm khác biệt kinh điển với quick ratio quốc tế. Theo đáp án CPA (tham khảo 2017), KNTT nhanh = Tiền / Nợ phải trả ngắn hạn."},
+ {q:"Vốn luân chuyển (VLC) âm cho biết điều gì?",o:["Doanh nghiệp đang thừa vốn dài hạn","Doanh nghiệp dùng vốn ngắn hạn để tài trợ tài sản dài hạn","Doanh nghiệp không có nợ dài hạn","Khả năng thanh toán rất tốt"],a:1,e:"VLC = Nguồn vốn dài hạn − TSDH. VLC < 0 nghĩa là nguồn dài hạn không đủ trang trải TSDH, phần thiếu do vốn ngắn hạn bù — vi phạm nguyên tắc cân bằng tài chính, rủi ro thanh toán."},
+ {q:"Khi tính ROA và ROE, mẫu số đúng là:",o:["Số dư cuối kỳ","Số dư đầu kỳ","Số bình quân trong kỳ","Số lớn nhất trong kỳ"],a:2,e:"Tử số (LNST) là kết quả của cả kỳ nên mẫu số phải là bình quân. Dùng số cuối kỳ là lỗi nhầm chỉ tiêu thời điểm/thời kỳ kinh điển."},
+ {q:"Đề thi 2024 quy định số ngày trong kỳ khi tính thời gian thu tiền bình quân là:",o:["360 ngày","365 ngày","300 ngày","Theo số ngày thực tế của quý"],a:1,e:"Đề 2024 quy định 365 ngày; một số đề khác dùng 360. Luôn đọc kỹ yêu cầu của đề trước khi tính."},
+ {q:"Theo đẳng thức DuPont, ROE được tách thành tích của:",o:["ROS × vòng quay tổng tài sản × hệ số tài sản/VCSH","ROA × hệ số nợ × thuế suất","ROS × hệ số tự tài trợ × vòng quay HTK","LNST × doanh thu × tổng tài sản"],a:0,e:"ROE = (LNST/DT) × (DT/Tổng TS) × (Tổng TS/VCSH) — sinh lời trên doanh thu, hiệu suất dùng tài sản và đòn bẩy tài chính."},
+ {q:"Điều kiện điểm để đạt chứng chỉ kiểm toán viên là:",o:["Mỗi môn ≥ 4, tổng ≥ 35","Mỗi môn ≥ 5, tổng 6 môn (trừ ngoại ngữ) ≥ 38","Chỉ cần tổng ≥ 38, không xét từng môn","Mỗi môn ≥ 6, tổng ≥ 40"],a:1,e:"Theo tổng hợp Thông tư 91/2017/TT-BTC: từng môn ≥ 5/10 và tổng 6 môn không tính ngoại ngữ ≥ 38 điểm. Người nâng cấp từ kế toán viên: tổng Kiểm toán + Phân tích ≥ 12,5."},
+ {q:"Lưu chuyển tiền thuần từ HĐKD âm liên tục nhiều kỳ là dấu hiệu của:",o:["Doanh nghiệp đang mở rộng đầu tư mạnh","Suy thoái năng lực tài chính","Doanh nghiệp ứ đọng tiền quá nhiều","Chính sách cổ tức cao"],a:1,e:"LCttKD âm kéo dài cho thấy hoạt động lõi không tự tạo đủ tiền. Ngược lại, LCtt dương quá lớn liên tục cũng cần xem xét vì có thể là ứ đọng tiền."},
+ {q:"Trong khung chương trình 2026, điểm hòa vốn và các chỉ số P/E, P/B thuộc vị trí nào?",o:["Là chuyên đề chính của môn Phân tích","Bổ trợ/liên thông môn Tài chính, không phải trọng tâm đề Phân tích","Đã bị bỏ khỏi mọi môn thi","Chỉ thi ở phần trắc nghiệm"],a:1,e:"Hòa vốn được lược bỏ khỏi môn Phân tích từ kỳ 2020; định giá và chỉ số thị trường nằm ở môn Tài chính và quản lý tài chính nâng cao."}
+];
+var quizDone={}, quizRight=0;
+function renderQuiz(){
+  document.getElementById("quizBox").innerHTML=quiz.map(function(x,qi){
+    return '<div class="quiz-q"><h3>Câu '+(qi+1)+'. '+x.q+'</h3><div class="opts">'+
+      x.o.map(function(o,oi){return '<button class="opt" data-q="'+qi+'" data-o="'+oi+'">'+String.fromCharCode(65+oi)+'. '+o+'</button>';}).join("")+
+      '</div><div class="expl" id="expl'+qi+'">'+x.e+'</div></div>';
+  }).join("");
+  document.getElementById("quizScore").textContent="";
+  Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){
+    b.addEventListener("click",function(){
+      var qi=+b.getAttribute("data-q"), oi=+b.getAttribute("data-o");
+      if(quizDone[qi])return; quizDone[qi]=true;
+      var box=b.closest(".quiz-q");
+      Array.prototype.forEach.call(box.querySelectorAll(".opt"),function(x){
+        x.disabled=true;
+        if(+x.getAttribute("data-o")===quiz[qi].a)x.classList.add("right");
+      });
+      if(oi===quiz[qi].a){quizRight++;}else{b.classList.add("wrong");}
+      document.getElementById("expl"+qi).classList.add("show");
+      var n=Object.keys(quizDone).length;
+      document.getElementById("quizScore").textContent="Đã trả lời "+n+"/"+quiz.length+" câu · Đúng "+quizRight+" câu"+(n===quiz.length?(quizRight>=7?" — Rất tốt, sẵn sàng luyện đề thật!":quizRight>=5?" — Khá, ôn lại các câu sai nhé.":" — Cần ôn lại flashcard công thức rồi làm lại."):"");
+    });
+  });
+}
+renderQuiz();
+document.getElementById("quizReset").addEventListener("click",function(){quizDone={};quizRight=0;renderQuiz();});
+
+/* ---------- Timer ---------- */
+var tTotal=35*60, tLeft=tTotal, tInt=null;
+var clock=document.getElementById("clock"), clockSub=document.getElementById("clockSub");
+function fmt(s){var m=Math.floor(s/60),ss=s%60;return (m<10?"0":"")+m+":"+(ss<10?"0":"")+ss;}
+function drawClock(){clock.textContent=fmt(Math.max(tLeft,0));}
+function stopT(){if(tInt){clearInterval(tInt);tInt=null;}}
+Array.prototype.forEach.call(document.querySelectorAll("[data-mode]"),function(b){
+  b.addEventListener("click",function(){
+    stopT(); var m=+b.getAttribute("data-mode"); tTotal=m*60; tLeft=tTotal; drawClock();
+    clockSub.textContent= m===180 ? "Chế độ: cả đề — 180 phút" : "Chế độ: 1 câu — "+m+" phút";
+    document.getElementById("tStart").textContent="Bắt đầu";
+  });
+});
+document.getElementById("tStart").addEventListener("click",function(){
+  if(tInt)return;
+  if(tLeft<=0){tLeft=tTotal;}
+  this.textContent="Đang chạy…";
+  tInt=setInterval(function(){
+    tLeft--; drawClock();
+    if(tLeft<=0){stopT();clock.textContent="Hết giờ!";document.getElementById("tStart").textContent="Bắt đầu";}
+  },1000);
+});
+document.getElementById("tPause").addEventListener("click",function(){stopT();document.getElementById("tStart").textContent="Tiếp tục";});
+document.getElementById("tReset").addEventListener("click",function(){stopT();tLeft=tTotal;drawClock();document.getElementById("tStart").textContent="Bắt đầu";});
+drawClock();
+
+/* ---------- Checklist ---------- */
+Array.prototype.forEach.call(document.querySelectorAll("#checkList li"),function(li){
+  li.addEventListener("click",function(){li.classList.toggle("done");});
+});
+
+/* ---------- AI chat: real AI via shared /api/ai hub ---------- */
+var CPA_SYSTEM = [
+  "Bạn là gia sư ôn thi CPA Việt Nam 2026, môn 'Phân tích hoạt động tài chính nâng cao', trên trang học Cpathaihoa.",
+  "NHIỆM VỤ: giúp học viên học và làm bài tập — giải thích công thức theo tài liệu Bộ Tài chính, hướng dẫn cách làm từng dạng bài, chữa bài tập học viên gửi, nhắc lỗi hay mất điểm và mẹo phòng thi.",
+  "QUY TẮC:",
+  "- Trả lời dựa trên NỘI DUNG TRANG được đính kèm ở phần ngữ cảnh (khung chương trình, công thức, dạng bài, mẹo thi). Nếu dùng kiến thức chuẩn của môn học nằm ngoài trang, nói rõ đó là kiến thức ngoài trang.",
+  "- Giải thích từng bước: nêu công thức → thay số → tính → nhận xét/kết luận. Khi chữa bài, chỉ ra đúng bước sai.",
+  "- KHÔNG bịa số liệu, đáp án, văn bản hay lịch thi. Lịch thi CPA 2026 chưa xác minh được ngày cụ thể: nếu được hỏi phải nói rõ chưa xác minh, khuyên kiểm tra mof.gov.vn / vacpa.org.vn, không lấy lịch 2025 thay thế.",
+  "- Nếu câu hỏi vượt ngoài nội dung trang và phạm vi môn học, nói rõ giới hạn của mình và gợi ý hướng tra cứu, không bịa thêm.",
+  "- Dùng định nghĩa chỉ tiêu theo tài liệu BTC (ví dụ KNTT nhanh = Tiền / Nợ ngắn hạn) và cảnh báo khi học viên dùng định nghĩa quốc tế khác.",
+  "- Trả lời bằng tiếng Việt (trừ khi học viên hỏi bằng tiếng Anh), rõ ràng, dùng gạch đầu dòng khi liệt kê."
+].join("\n");
+
+var CPA_CONTEXT = [
+  "TRANG: Cpathaihoa — ôn thi CPA 2026, môn Phân tích hoạt động tài chính nâng cao.",
+  "CẤU TRÚC ĐỀ: thi viết tự luận trên giấy, 180 phút, 5 câu × 2 điểm, đề chẵn/lẻ. Xu hướng 2023–2024: cả 5 câu là bài tập tình huống, lý thuyết lồng trong từng câu.",
+  "ĐIỂM ĐẠT (theo tổng hợp Thông tư 91/2017/TT-BTC, cần đối chiếu văn bản gốc): mỗi môn ≥ 5/10; tổng 6 môn (không tính ngoại ngữ) ≥ 38; nâng cấp từ kế toán viên: Kiểm toán + Phân tích ≥ 12,5, ngoại ngữ chỉ xét đạt.",
+  "LỊCH THI 2026: CHƯA XÁC MINH được ngày cụ thể (BTC đã đăng thông báo 02/09/2026 trên mof.gov.vn nhưng chi tiết chưa đọc được) — không được khẳng định ngày thi.",
+  "KHUNG CHƯƠNG TRÌNH 2026 (tài liệu BTC thông báo 10/7/2026): Phần I Tổng quan; Phần II gồm 8 chuyên đề; Phần III phụ lục thuật ngữ. KHÔNG có trọng số chính thức theo chương — bảng tỷ trọng trên trang là kinh nghiệm cá nhân của thí sinh đã đỗ.",
+  "CHUYÊN ĐỀ 1 — Khái quát: phân biệt chỉ tiêu thời điểm (số cuối kỳ: tự tài trợ, KNTT tổng quát/ngắn hạn/nhanh) với chỉ tiêu thời kỳ (bình quân/dòng trong kỳ: ROA, ROE, khả năng chi trả). Tổng DT & thu nhập = DT thuần (MS10) + DT tài chính (MS21) + Thu nhập khác (MS31). Hệ số tự tài trợ = VCSH / Tổng nguồn vốn.",
+  "CHUYÊN ĐỀ 2 — Huy động & sử dụng vốn: phân tích quy mô, cơ cấu, biến động từng nguồn vốn và từng loại tài sản. Không có cơ cấu vốn tối ưu tuyệt đối — chỉ có cơ cấu phù hợp ngành, giai đoạn và mức rủi ro.",
+  "CHUYÊN ĐỀ 3 — Tài trợ & bảo đảm vốn: Nguồn vốn dài hạn = VCSH + Nợ dài hạn. Vốn luân chuyển VLC = Nguồn vốn dài hạn − Tài sản dài hạn. VLC > 0 và tăng: tài trợ ổn định, cân bằng tài chính (VLC quá lớn có thể bỏ lỡ cơ hội đầu tư). VLC < 0: dùng vốn ngắn hạn tài trợ TSDH, rủi ro thanh toán.",
+  "CHUYÊN ĐỀ 4 — Công nợ & khả năng thanh toán (trọng tâm ~20%): Vòng quay phải thu = DT thuần / Phải thu bình quân; Thời gian thu tiền = Số ngày trong kỳ / Vòng quay. Vòng quay HTK = Giá vốn hàng bán / HTK bình quân. KNTT tổng quát = Tổng TS / Tổng nợ. KNTT ngắn hạn = TSNH / Nợ NH. KNTT nhanh (theo BTC) = Tiền / Nợ NH — khác quick ratio quốc tế (TSNH − HTK)/Nợ NH. Khả năng chi trả nợ NH = LCtt từ HĐKD / Nợ NH bình quân. Khả năng trả lãi = EBIT / Lãi vay. Số ngày trong kỳ theo đề (đề 2024: 365 ngày). Phải thu tăng nhanh hơn doanh thu = dấu hiệu bị chiếm dụng vốn.",
+  "CHUYÊN ĐỀ 5 — Tạo tiền & lưu chuyển tiền tệ: Tiền tồn đầu kỳ + Tiền thu = Tiền chi + Tiền tồn cuối kỳ. LCtt = LCttKD + LCttĐT + LCttTC. Hệ số tạo tiền = Tổng tiền thu / Tổng tiền chi. Tiền thu chủ yếu từ HĐKD = bền vững; LCttKD âm liên tục = suy thoái năng lực tài chính; LCttTC dương tăng = tăng lệ thuộc tài chính.",
+  "CHUYÊN ĐỀ 6 — Tình hình & kết quả kinh doanh: phân tích doanh thu, giá vốn, chi phí theo quy mô/tốc độ/tỷ trọng trên doanh thu. Phân tích LN gộp theo nhân tố: (1) sản lượng, (2) kết cấu mặt hàng, (3) LN gộp đơn vị — tách tiếp giá bán và giá vốn đơn vị.",
+  "CHUYÊN ĐỀ 7 — Hiệu suất & sinh lời (trọng tâm ~20%): ROS = LNST / DT thuần; ROA = LNST / Tổng TS bình quân; ROE = LNST / VCSH bình quân (mẫu số phải là bình quân). DuPont: ROE = ROS × Vòng quay tổng TS × (Tổng TS / VCSH). Đòn bẩy: ROE = [ROB + (D/E)(ROB − r_d)] × (1 − t), ROB = EBIT / Tổng TS; ROB > r_d thì vay nợ khuếch đại ROE, ngược lại ROE giảm nhanh.",
+  "CHUYÊN ĐỀ 8 — Rủi ro & dự báo: dấu hiệu rủi ro gồm hệ số nợ/nợ-VCSH tăng, hệ số thanh toán < 1, khả năng trả lãi yếu, vòng quay chậm, HTK ứ đọng, phải thu tăng nhanh, LCttKD âm, nợ quá hạn tăng — phải kết luận rủi ro ở khâu huy động vốn, thanh toán hay hiệu suất. Dự báo nhu cầu tài chính: phương pháp tỷ lệ % trên doanh thu (4 bước); Nhu cầu VLĐ tăng thêm = Doanh thu tăng thêm × (%TSNH − %vốn chiếm dụng); nguồn trang trải: lợi nhuận để lại trước, huy động ngoài sau.",
+  "BỔ TRỢ — thuộc môn Tài chính, KHÔNG phải trọng tâm môn Phân tích: điểm hòa vốn (Qhv = F / (g − v); DThv = F / Tỷ lệ lãi trên biến phí; DOL, DFL, DTL; hòa vốn đã lược bỏ khỏi môn Phân tích từ 2020) và chỉ số thị trường/định giá (EPS = LNST / Số CP thường bình quân; P/E; P/B; tỷ suất cổ tức).",
+  "LỖI HAY MẤT ĐIỂM: dùng định nghĩa chỉ tiêu không theo sách BTC; nhầm thời điểm/bình quân; nhầm 360/365 ngày; chỉ tính số không phân tích, không kết luận; kết luận một chiều từ một chỉ số; bỏ trống câu. MẸO PHÒNG THI: đọc lướt đề, dễ trước khó sau, viết công thức ra giấy trước khi tính, ~30 phút/câu, 5 phút cuối rà soát đủ 5 câu và kết luận.",
+  "MẪU TRÌNH BÀY ĂN ĐIỂM: Tính toán → Phân tích (trị số, biến động, nguyên nhân, đánh giá) → Kết luận + kiến nghị.",
+  "ĐỀ CŨ & BÀI TẬP NÂNG CAO (mục mới trên trang): đề 2016–2024 trên trang là bản SƯU TẦM từ Gonnapass, KHÔNG phải đề chính thức; năm 2021 không có đề vì kỳ thi không tổ chức do Covid. KHÔNG có lời giải chi tiết miễn phí hay barem chính thức nào cho môn Phân tích được tìm thấy — đáp án tham khảo của Gonnapass phải mua sách. Lời giải ở mục Bài tập nâng cao là lời giải TỰ TÍNH theo số liệu đề thật, không phải đáp án/barem chính thức. TUYỆT ĐỐI không trích bài giải môn 'Tài chính và quản lý tài chính nâng cao' trên Tuonthi/TACA làm bài giải môn Phân tích — đó là môn khác."
+].join("\n");
+
+var chatBody=document.getElementById("chatBody");
+var chatStatusEl=document.getElementById("chatStatus");
+var chatStatusText=document.getElementById("chatStatusText");
+var aiConnected=null, aiProvider=null, chatHistory=[];
+
+function addMsg(text,who){
+  var d=document.createElement("div");
+  d.className="msg "+who; d.textContent=text;
+  chatBody.appendChild(d); chatBody.scrollTop=chatBody.scrollHeight;
+  return d;
+}
+function setStatus(){
+  chatStatusEl.classList.remove("on","off");
+  if(aiConnected===null){ chatStatusText.textContent="Đang kiểm tra kết nối AI…"; }
+  else if(aiConnected){ chatStatusEl.classList.add("on"); chatStatusText.textContent="AI đã nối"+(aiProvider?" · "+aiProvider:"")+" qua /api/ai"; }
+  else { chatStatusEl.classList.add("off"); chatStatusText.textContent="AI chưa được nối — đầu mối /api/ai chưa sẵn sàng"; }
+}
+function pingAI(){
+  return fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({ping:true})})
+    .then(function(r){ return r.json().catch(function(){return {};}).then(function(d){ return {ok:r.ok, d:d||{}}; }); })
+    .then(function(res){
+      aiConnected = !!(res.ok && res.d.connected!==false && (res.d.ok || res.d.connected));
+      aiProvider = aiConnected ? (res.d.provider||null) : null;
+      setStatus();
+      return aiConnected;
+    })
+    .catch(function(){ aiConnected=false; aiProvider=null; setStatus(); return false; });
+}
+function notConnectedMsg(){
+  addMsg("AI chưa được nối. Đầu mối chung /api/ai chưa phản hồi trên bản deploy này nên gia sư chưa trả lời bằng AI thật được. Khi trang được deploy kèm hàm api/ai.js và khóa API phía server (mã mẫu ở mục “Mã mẫu /api/ai” cuối trang), mở lại trang là chat tự nối — bạn không cần nhập token gì cả. Trong lúc chờ, bạn cứ học tiếp bằng các mục Flashcard, Bài tập mẫu và Quiz trên trang nhé.","bot");
+}
+function sendChat(text){
+  addMsg(text,"user");
+  chatHistory.push({role:"user",content:text});
+  var ready = aiConnected ? Promise.resolve(true) : pingAI();
+  ready.then(function(ok){
+    if(!ok){ notConnectedMsg(); return; }
+    var typing=addMsg("Gia sư đang trả lời…","bot typing");
+    fetch("/api/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+      text:text, system:CPA_SYSTEM, context:CPA_CONTEXT, messages:chatHistory.slice(-10)
+    })})
+    .then(function(r){ return r.json().catch(function(){return {};}).then(function(d){ return {ok:r.ok, d:d||{}}; }); })
+    .then(function(res){
+      typing.remove();
+      var reply=res.d.text||res.d.reply||res.d.answer||"";
+      if(res.ok && reply){ addMsg(reply,"bot"); chatHistory.push({role:"assistant",content:reply}); }
+      else if(res.d.error && /chưa được nối|api key/i.test(res.d.error)){ aiConnected=false; setStatus(); notConnectedMsg(); }
+      else { addMsg("Xin lỗi, đầu mối AI trả về lỗi"+(res.d.error?": "+res.d.error:"")+". Bạn thử gửi lại sau ít phút nhé.","bot"); }
+    })
+    .catch(function(){ typing.remove(); aiConnected=false; setStatus(); notConnectedMsg(); });
+  });
+}
+var chips=["Công thức DuPont tính ROE?","Vốn luân chuyển là gì?","Lịch thi 2026 khi nào?","Điểm đạt là bao nhiêu?","Lỗi hay mất điểm nhất?","KNTT nhanh tính thế nào?"];
+document.getElementById("chatChips").innerHTML=chips.map(function(c){return '<button type="button" class="chip">'+c+'</button>';}).join("");
+Array.prototype.forEach.call(document.querySelectorAll("#chatChips .chip"),function(ch){
+  ch.addEventListener("click",function(){ sendChat(ch.textContent); });
+});
+addMsg("Chào bạn! Mình là gia sư AI ôn thi CPA 2026 môn Phân tích hoạt động tài chính nâng cao. Hỏi mình về công thức, dạng bài, cách trình bày, lịch thi hay cách ôn — hoặc bấm một gợi ý bên dưới. Mình trả lời bám theo nội dung trang học này và sẽ nói rõ khi câu hỏi vượt ngoài phạm vi đó.","bot");
+pingAI().then(function(ok){ if(!ok) notConnectedMsg(); });
+var panel=document.getElementById("chatPanel");
+document.getElementById("chatFab").addEventListener("click",function(){
+  panel.classList.toggle("open");
+  if(panel.classList.contains("open"))document.getElementById("chatInput").focus();
+});
+document.getElementById("chatClose").addEventListener("click",function(){panel.classList.remove("open");});
+document.getElementById("chatForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  var inp=document.getElementById("chatInput"), v=inp.value.trim();
+  if(!v)return; inp.value="";
+  sendChat(v);
+});
+
+/* ---------- Copy api/ai.js sample ---------- */
+document.getElementById("copyAiSample").addEventListener("click",function(){
+  var code=document.getElementById("aiSamplePre").textContent;
+  var note=document.getElementById("copyAiNote");
+  function done(){ note.textContent="Đã copy — dán vào file api/ai.js trong repo khi deploy."; }
+  function fallback(){
+    var ta=document.createElement("textarea");
+    ta.value=code; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); done(); }
+    catch(e){ note.textContent="Không copy tự động được — bấm giữ trong khối mã để chọn và sao chép thủ công."; }
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(code).then(done,fallback);
+  } else { fallback(); }
+});
+
+})();
+</script>
+</body>
+</html>
