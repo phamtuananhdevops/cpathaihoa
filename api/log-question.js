@@ -4,7 +4,7 @@
 // Khong luu ten, IP, user-agent hay cau tra loi. Khong yeu cau xac thuc.
 // Loi Blob -> tra 500 (frontend bo qua loi log).
 
-const BLOB_API = "https://blob.vercel-storage.com/";
+const { put } = require("@vercel/blob");
 
 function randomSuffix(n) {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -46,25 +46,13 @@ module.exports = async function handler(req, res) {
   const safeTs = ts.replace(/[^0-9A-Za-z-]/g, "-").slice(0, 40) || "no-ts";
   const pathname = "questions/" + safeTs + "-" + randomSuffix(8) + ".json";
 
-  // Header theo @vercel/blob SDK hien tai: x-api-version 13, x-vercel-blob-access.
   try {
-    const r = await fetch(BLOB_API + pathname, {
-      method: "PUT",
-      headers: {
-        authorization: "Bearer " + token,
-        "x-api-version": "13",
-        "x-content-type": "application/json",
-        "x-vercel-blob-access": "private",
-        "x-add-random-suffix": "0"
-      },
-      body: JSON.stringify({ question: q, timestamp: ts })
+    await put(pathname, JSON.stringify({ question: q, timestamp: ts }), {
+      access: "private",
+      contentType: "application/json",
+      addRandomSuffix: false,
+      token: token
     });
-    if (!r.ok) {
-      let detail = "";
-      try { detail = await r.text(); } catch (e) {}
-      console.error("[log-question] blob upload failed:", r.status, detail.slice(0, 500), "pathname:", pathname);
-      throw new Error("Blob upload failed: " + r.status + " " + detail.slice(0, 200));
-    }
     res.status(200).json({ ok: true });
   } catch (err) {
     console.error("[log-question] error:", err && err.message);
