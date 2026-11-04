@@ -10,6 +10,9 @@
 //   AI_MODEL (tùy chọn) ghi đè model; khi không đặt AI_MODEL, nhánh Gemini tự
 //   thử lần lượt: gemini-3.1-pro-preview → gemini-3.8-flash;
 //   mặc định Muse (Meta Model API): muse-spark-1.3.
+// Tự động chuyển tiếp (fallback) sang provider/model tiếp theo khi gặp lỗi
+// hết quota, rate limit, model không khả dụng hoặc lỗi quá tải dịch vụ
+// (mã 429/503, "high demand", "overloaded", "try again later", ...).
 
 const DEFAULT_SYSTEM = [
   "Bạn là gia sư ôn thi CPA Việt Nam 2026, môn Phân tích hoạt động tài chính nâng cao.",
@@ -37,15 +40,21 @@ function providerError(r, data, fallbackMsg) {
 }
 
 // Lỗi được phép chuyển sang provider tiếp theo: hết quota / bị giới hạn tần
-// suất, hoặc model không khả dụng (kể cả model đã bị khai tử / "no longer
-// available"). Các lỗi khác giữ nguyên cách xử lý cũ.
+// suất, lỗi quá tải dịch vụ (mã 429/503 hoặc các cụm "high demand",
+// "overloaded", "try again later", ...), hoặc model không khả dụng
+// (kể cả model đã bị khai tử / "no longer available").
+// Các lỗi khác giữ nguyên cách xử lý cũ.
 function isFallbackError(err) {
   if (!err) return false;
-  if (err.status === 429) return true;
+  if (err.status === 429 || err.status === 503) return true;
   const msg = String(err.message || "").toLowerCase();
   if (msg.indexOf("quota") !== -1) return true;
   if (msg.indexOf("rate limit") !== -1 || msg.indexOf("rate_limit") !== -1 ||
       msg.indexOf("too many requests") !== -1) return true;
+  if (msg.indexOf("high demand") !== -1 || msg.indexOf("overloaded") !== -1 ||
+      msg.indexOf("overload") !== -1 || msg.indexOf("capacity") !== -1 ||
+      msg.indexOf("currently experiencing") !== -1 || msg.indexOf("spikes in demand") !== -1 ||
+      msg.indexOf("try again later") !== -1 || msg.indexOf("service unavailable") !== -1) return true;
   if (msg.indexOf("model") !== -1 &&
       (msg.indexOf("not found") !== -1 || msg.indexOf("not_found") !== -1 ||
        msg.indexOf("unavailable") !== -1 || msg.indexOf("not available") !== -1 ||
@@ -93,17 +102,23 @@ async function callOpenAI(key, model, system, messages) {
 
 // Fallback nhiều model cho nhánh Gemini: thử lần lượt từng model theo thứ tự
 // ưu tiên. Khi gặp lỗi hết quota / rate limit (429, quota exceeded,
-// too many requests) hoặc model không khả dụng (kể cả model đã bị khai tử /
-// "no longer available") thì tự chuyển sang model tiếp theo trong danh sách.
+// too many requests), lỗi quá tải dịch vụ (mã 429/503 hoặc các cụm
+// "high demand", "overloaded", "try again later", ...) hoặc model không
+// khả dụng (kể cả model đã bị khai tử / "no longer available") thì tự
+// chuyển sang model tiếp theo trong danh sách.
 // Các lỗi khác giữ nguyên cách xử lý hiện có.
 const GEMINI_MODEL_FALLBACKS = ["gemini-3.1-pro-preview", "gemini-3.8-flash"];
 function isGeminiModelRetryError(err) {
   if (!err) return false;
-  if (err.status === 429) return true;
+  if (err.status === 429 || err.status === 503) return true;
   const msg = String(err.message || "").toLowerCase();
   if (msg.indexOf("quota") !== -1) return true;
   if (msg.indexOf("rate limit") !== -1 || msg.indexOf("rate_limit") !== -1 ||
       msg.indexOf("too many requests") !== -1 || msg.indexOf("resource exhausted") !== -1) return true;
+  if (msg.indexOf("high demand") !== -1 || msg.indexOf("overloaded") !== -1 ||
+      msg.indexOf("overload") !== -1 || msg.indexOf("capacity") !== -1 ||
+      msg.indexOf("currently experiencing") !== -1 || msg.indexOf("spikes in demand") !== -1 ||
+      msg.indexOf("try again later") !== -1 || msg.indexOf("service unavailable") !== -1) return true;
   if (msg.indexOf("model") !== -1 &&
       (msg.indexOf("not found") !== -1 || msg.indexOf("not_found") !== -1 ||
        msg.indexOf("unavailable") !== -1 || msg.indexOf("not available") !== -1 ||
@@ -135,7 +150,8 @@ async function callGeminiOnce(key, model, system, messages) {
 }
 
 // Nhánh Gemini: khi không có AI_MODEL override, thử lần lượt các model trong
-// GEMINI_MODEL_FALLBACKS; model nào hết quota / không khả dụng thì chuyển tiếp.
+// GEMINI_MODEL_FALLBACKS; model nào hết quota / không khả dụng / quá tải thì
+// chuyển tiếp.
 async function callGemini(key, model, system, messages) {
   const models = model ? [model] : GEMINI_MODEL_FALLBACKS;
   let lastErr = null;
@@ -205,8 +221,8 @@ module.exports = async function handler(req, res) {
     (body.context ? "\n\nNGỮ CẢNH — NỘI DUNG TRANG HỌC:\n" + String(body.context) : "");
   const model = process.env.AI_MODEL || null;
   // Thử các provider đã cấu hình theo thứ tự; khi một provider trả lỗi
-  // quota/rate-limit hoặc model không khả dụng thì tự chuyển sang provider
-  // tiếp theo. Riêng nhánh Gemini tự thử lần lượt các model
+  // quota/rate-limit, lỗi quá tải dịch vụ, hoặc model không khả dụng thì tự
+  // chuyển sang provider tiếp theo. Riêng nhánh Gemini tự thử lần lượt các model
   // (gemini-3.1-pro-preview → gemini-3.8-flash) trước khi
   // nhường cho provider tiếp theo. Nếu MUSE_API_KEY chưa được cấu hình, nhánh
   // Muse đã bị bỏ qua ở listProviders() nên sẽ trả về lỗi gốc của provider trước đó.
