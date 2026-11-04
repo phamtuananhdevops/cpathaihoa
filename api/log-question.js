@@ -46,14 +46,15 @@ module.exports = async function handler(req, res) {
   const safeTs = ts.replace(/[^0-9A-Za-z-]/g, "-").slice(0, 40) || "no-ts";
   const pathname = "questions/" + safeTs + "-" + randomSuffix(8) + ".json";
 
+  // Header theo @vercel/blob SDK hien tai: x-api-version 13, x-vercel-blob-access.
   try {
     const r = await fetch(BLOB_API + pathname, {
       method: "PUT",
       headers: {
         authorization: "Bearer " + token,
-        "x-api-version": "7",
+        "x-api-version": "13",
         "x-content-type": "application/json",
-        "x-access": "private",
+        "x-vercel-blob-access": "private",
         "x-add-random-suffix": "0"
       },
       body: JSON.stringify({ question: q, timestamp: ts })
