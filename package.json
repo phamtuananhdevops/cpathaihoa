@@ -1,0 +1,9 @@
+{
+  "name": "cpathaihoa",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Cpathaihoa — CPA study panel with anonymous question logging",
+  "dependencies": {
+    "@vercel/blob": "^2.8.2"
+  }
+}
