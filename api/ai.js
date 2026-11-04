@@ -5,6 +5,7 @@
 //                     → trả { ok, provider, text }
 // Khóa đọc từ Environment Variables phía server:
 //   ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY / MUSE_API_KEY
+//   OpenAI_KEY được chấp nhận làm khóa OpenAI dự phòng (OPENAI_API_KEY ưu tiên).
 //   AI_KEY được chấp nhận làm khóa Gemini dự phòng.
 //   AI_MODEL (tùy chọn) ghi đè model; mặc định Gemini: gemini-3.1-pro-preview,
 //   mặc định Muse (Meta Model API): muse-spark-1.3.
@@ -20,7 +21,8 @@ const DEFAULT_SYSTEM = [
 function listProviders() {
   const chain = [];
   if (process.env.ANTHROPIC_API_KEY) chain.push({ name: "anthropic", key: process.env.ANTHROPIC_API_KEY });
-  if (process.env.OPENAI_API_KEY) chain.push({ name: "openai", key: process.env.OPENAI_API_KEY });
+  const o = process.env.OPENAI_API_KEY || process.env.OpenAI_KEY;
+  if (o) chain.push({ name: "openai", key: o });
   const g = process.env.GEMINI_API_KEY || process.env.AI_KEY;
   if (g) chain.push({ name: "gemini", key: g });
   if (process.env.MUSE_API_KEY) chain.push({ name: "muse", key: process.env.MUSE_API_KEY });
