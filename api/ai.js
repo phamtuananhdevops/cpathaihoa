@@ -7,14 +7,15 @@
 //   ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY / MUSE_API_KEY
 //   OpenAI_KEY được chấp nhận làm khóa OpenAI dự phòng (OPENAI_API_KEY ưu tiên).
 //   AI_KEY được chấp nhận làm khóa Gemini dự phòng.
-//   AI_MODEL (tùy chọn) ghi đè model; mặc định Gemini: gemini-3.1-pro-preview,
+//   AI_MODEL (tùy chọn) ghi đè model; khi không đặt AI_MODEL, nhánh Gemini tự
+//   thử lần lượt: gemini-3.1-pro-preview → gemini-2.5-flash → gemini-2.0-flash;
 //   mặc định Muse (Meta Model API): muse-spark-1.3.
 
 const DEFAULT_SYSTEM = [
   "Bạn là gia sư ôn thi CPA Việt Nam 2026, môn Phân tích hoạt động tài chính nâng cao.",
   "Trả lời dựa trên nội dung trang học Cpathaihoa (khung chương trình, công thức theo tài liệu Bộ Tài chính, dạng bài, mẹo thi) được gửi kèm trong ngữ cảnh.",
   "Giải thích từng bước: nêu công thức, thay số, tính, rồi nhận xét/kết luận.",
-  "Không bịa số liệu, đáp án hay lịch thi chưa xác minh: lịch thi CPA 2026 chưa có ngày cụ thể đã xác minh — nếu được hỏi, nói rõ điều đó và khuyên kiểm tra mof.gov.vn / vacpa.org.vn.",
+  "Không bịa số liệu, đáp án hay lịch thi chưa xác minh: lịch thi CPA 2026 chưa có ngày cụ thể đã xác minh — nếu được hỏi, nói rõ điều đó và khuyến nghị kiểm tra mof.gov.vn / vacpa.org.vn.",
   "Nếu câu hỏi vượt ngoài nội dung trang, nói rõ giới hạn của mình thay vì bịa thêm."
 ].join("\n");
 
@@ -88,7 +89,26 @@ async function callOpenAI(key, model, system, messages) {
     ? data.choices[0].message.content : "";
 }
 
-async function callGemini(key, model, system, messages) {
+// Fallback nhiều model cho nhánh Gemini: thử lần lượt từng model theo thứ tự
+// ưu tiên. Khi gặp lỗi hết quota / rate limit (429, quota exceeded,
+// too many requests) hoặc model không khả dụng thì tự chuyển sang model tiếp
+// theo trong danh sách. Các lỗi khác giữ nguyên cách xử lý hiện có.
+const GEMINI_MODEL_FALLBACKS = ["gemini-3.1-pro-preview", "gemini-2.5-flash", "gemini-2.0-flash"];
+function isGeminiModelRetryError(err) {
+  if (!err) return false;
+  if (err.status === 429) return true;
+  const msg = String(err.message || "").toLowerCase();
+  if (msg.indexOf("quota") !== -1) return true;
+  if (msg.indexOf("rate limit") !== -1 || msg.indexOf("rate_limit") !== -1 ||
+      msg.indexOf("too many requests") !== -1 || msg.indexOf("resource exhausted") !== -1) return true;
+  if (msg.indexOf("model") !== -1 &&
+      (msg.indexOf("not found") !== -1 || msg.indexOf("not_found") !== -1 ||
+       msg.indexOf("unavailable") !== -1 || msg.indexOf("not available") !== -1 ||
+       msg.indexOf("unsupported") !== -1 || msg.indexOf("does not exist") !== -1)) return true;
+  return false;
+}
+
+async function callGeminiOnce(key, model, system, messages) {
   const url = "https://generativelanguage.googleapis.com/v1beta/models/" +
     (model || "gemini-3.1-pro-preview") + ":generateContent?key=" + encodeURIComponent(key);
   const contents = messages.map(function (m) {
@@ -108,6 +128,22 @@ async function callGemini(key, model, system, messages) {
   const parts = data.candidates && data.candidates[0] && data.candidates[0].content
     ? (data.candidates[0].content.parts || []) : [];
   return parts.map(function (p) { return p.text || ""; }).join("\n");
+}
+
+// Nhánh Gemini: khi không có AI_MODEL override, thử lần lượt các model trong
+// GEMINI_MODEL_FALLBACKS; model nào hết quota / không khả dụng thì chuyển tiếp.
+async function callGemini(key, model, system, messages) {
+  const models = model ? [model] : GEMINI_MODEL_FALLBACKS;
+  let lastErr = null;
+  for (let i = 0; i < models.length; i++) {
+    try {
+      return await callGeminiOnce(key, models[i], system, messages);
+    } catch (err) {
+      lastErr = err;
+      if (!isGeminiModelRetryError(err)) throw err;
+    }
+  }
+  throw lastErr;
 }
 
 async function callMuse(key, model, system, messages) {
@@ -142,9 +178,7 @@ module.exports = async function handler(req, res) {
   if (typeof body === "string") {
     try { body = JSON.parse(body); } catch (e) { body = {}; }
   }
-
   const chain = listProviders();
-
   if (body.ping) {
     res.status(200).json({ ok: true, connected: chain.length > 0, provider: chain.length ? chain[0].name : null });
     return;
@@ -153,7 +187,6 @@ module.exports = async function handler(req, res) {
     res.status(503).json({ ok: false, error: "AI chưa được nối: server chưa có API key (ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY / AI_KEY / MUSE_API_KEY)." });
     return;
   }
-
   let messages = Array.isArray(body.messages)
     ? body.messages.filter(function (m) { return m && m.content; }) : [];
   if (!messages.length && body.text) messages = [{ role: "user", content: String(body.text) }];
@@ -164,15 +197,15 @@ module.exports = async function handler(req, res) {
   messages = messages.slice(-12).map(function (m) {
     return { role: m.role === "assistant" ? "assistant" : "user", content: String(m.content) };
   });
-
   const system = (body.system ? String(body.system) : DEFAULT_SYSTEM) +
     (body.context ? "\n\nNGỮ CẢNH — NỘI DUNG TRANG HỌC:\n" + String(body.context) : "");
   const model = process.env.AI_MODEL || null;
-
   // Thử các provider đã cấu hình theo thứ tự; khi một provider trả lỗi
   // quota/rate-limit hoặc model không khả dụng thì tự chuyển sang provider
-  // tiếp theo. Nếu MUSE_API_KEY chưa được cấu hình, nhánh Muse đã bị bỏ qua
-  // ở listProviders() nên sẽ trả về lỗi gốc của provider trước đó.
+  // tiếp theo. Riêng nhánh Gemini tự thử lần lượt các model
+  // (gemini-3.1-pro-preview → gemini-2.5-flash → gemini-2.0-flash) trước khi
+  // nhường cho provider tiếp theo. Nếu MUSE_API_KEY chưa được cấu hình, nhánh
+  // Muse đã bị bỏ qua ở listProviders() nên sẽ trả về lỗi gốc của provider trước đó.
   let text = "";
   let used = null;
   let lastErr = null;
