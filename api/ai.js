@@ -15,6 +15,7 @@
 // (mã 429/503, "high demand", "overloaded", "try again later", ...).
 
 const DEFAULT_SYSTEM = [
+  
   "Bạn là gia sư ôn thi CPA Việt Nam 2026, môn Phân tích hoạt động tài chính nâng cao.",
   "Trả lời dựa trên nội dung trang học Cpathaihoa (khung chương trình, công thức theo tài liệu Bộ Tài chính, dạng bài, mẹo thi) được gửi kèm trong ngữ cảnh.",
   "Giải thích từng bước: nêu công thức, thay số, tính, rồi nhận xét/kết luận.",
@@ -247,3 +248,4 @@ module.exports = async function handler(req, res) {
   }
   res.status(200).json({ ok: true, provider: used, text: text });
 };
+// Build 2026-11-05b: force fresh Vercel rebuild (overload fallback patterns active).
