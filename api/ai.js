@@ -8,7 +8,7 @@
 //   OpenAI_KEY được chấp nhận làm khóa OpenAI dự phòng (OPENAI_API_KEY ưu tiên).
 //   AI_KEY được chấp nhận làm khóa Gemini dự phòng.
 //   AI_MODEL (tùy chọn) ghi đè model; khi không đặt AI_MODEL, nhánh Gemini tự
-//   thử lần lượt: gemini-3.1-pro-preview → gemini-2.5-flash → gemini-2.0-flash;
+//   thử lần lượt: gemini-3.1-pro-preview → gemini-3.8-flash;
 //   mặc định Muse (Meta Model API): muse-spark-1.3.
 
 const DEFAULT_SYSTEM = [
@@ -96,7 +96,7 @@ async function callOpenAI(key, model, system, messages) {
 // too many requests) hoặc model không khả dụng (kể cả model đã bị khai tử /
 // "no longer available") thì tự chuyển sang model tiếp theo trong danh sách.
 // Các lỗi khác giữ nguyên cách xử lý hiện có.
-const GEMINI_MODEL_FALLBACKS = ["gemini-3.1-pro-preview", "gemini-2.5-flash", "gemini-2.0-flash"];
+const GEMINI_MODEL_FALLBACKS = ["gemini-3.1-pro-preview", "gemini-3.8-flash"];
 function isGeminiModelRetryError(err) {
   if (!err) return false;
   if (err.status === 429) return true;
@@ -207,7 +207,7 @@ module.exports = async function handler(req, res) {
   // Thử các provider đã cấu hình theo thứ tự; khi một provider trả lỗi
   // quota/rate-limit hoặc model không khả dụng thì tự chuyển sang provider
   // tiếp theo. Riêng nhánh Gemini tự thử lần lượt các model
-  // (gemini-3.1-pro-preview → gemini-2.5-flash → gemini-2.0-flash) trước khi
+  // (gemini-3.1-pro-preview → gemini-3.8-flash) trước khi
   // nhường cho provider tiếp theo. Nếu MUSE_API_KEY chưa được cấu hình, nhánh
   // Muse đã bị bỏ qua ở listProviders() nên sẽ trả về lỗi gốc của provider trước đó.
   let text = "";
