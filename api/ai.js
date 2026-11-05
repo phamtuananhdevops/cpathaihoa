@@ -200,6 +200,8 @@ module.exports = async function handler(req, res) {
     try { body = JSON.parse(body); } catch (e) { body = {}; }
   }
   const chain = listProviders();
+  // [DIAG TEMP — gỡ sau khi chẩn đoán xong]: chỉ ghi TÊN provider, không ghi key hay giá trị env.
+  console.log("[DIAG] chain: " + chain.map(function (p) { return p.name; }).join(","));
   if (body.ping) {
     res.status(200).json({ ok: true, connected: chain.length > 0, provider: chain.length ? chain[0].name : null });
     return;
@@ -238,6 +240,8 @@ module.exports = async function handler(req, res) {
       break;
     } catch (err) {
       lastErr = err;
+      // [DIAG TEMP — gỡ sau khi chẩn đoán xong]: chỉ ghi tên provider/status/đoạn message, không ghi key.
+      console.log("[DIAG] provider failed: " + chain[i].name + " | fallback? " + isFallbackError(err) + " | status: " + err.status + " | msg: " + String(err.message || "").slice(0, 120));
       if (i < chain.length - 1 && isFallbackError(err)) continue;
       break;
     }
